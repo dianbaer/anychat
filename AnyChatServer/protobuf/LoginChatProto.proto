@@ -1,0 +1,95 @@
+syntax = "proto3";
+package protobuf.ws;
+message LoginChatServerC{
+	string wsOpCode=1;
+	string token=2;//身份
+}
+message LoginChatServerS{
+	string wsOpCode=1;
+	ChatUserData chatUser=2;//自己
+	repeated ChatUserData chatUserList=3;//好友列表
+	repeated ChatGroupData chatGroupList=4;//组列表
+}
+message UserKickS{
+	string wsOpCode=1;
+	string msg=2;//被踢下线的内容提示
+}
+message AgainConnectS{
+	string wsOpCode=1;//等会踢用户下线再登录
+}
+message ChatUserOnlineS{
+	string wsOpCode=1;
+	ChatUserData chatUser=2;//上线的用户（如果在好友列表则只显示状态，不在则增加）
+}
+message ChatUserOfflineS{
+	string wsOpCode=1;
+	string userId=2;//下线的用户
+}
+message SendMessageC{
+	string wsOpCode=1;
+	string chatContent=2;
+	int32 toType=3;//1用户，2组
+	string toTypeId=4;//根据toType不一样代表的不一样
+}
+message UserMessageS{
+	string wsOpCode=1;
+	repeated ChatMessageData message=2;
+	string userId=3;
+}
+message ToUserMessageS{
+	string wsOpCode=1;
+	ChatMessageData message=2;
+	string toUserId=3;
+}
+message UserMessageReceiveC{
+	string wsOpCode=1;
+	repeated string messageId=2;
+	string userId=3;
+}
+message GroupMessageS{
+	string wsOpCode=1;
+	repeated ChatMessageData message=2;
+	string chatGroupId=3;
+}
+message GroupMessageReceiveC{
+	string wsOpCode=1;
+	string endChatId=2;//最后的chatId，然后根据chat修改用户的更新时间
+	string chatGroupId=3;
+}
+message GetChatListC{
+	string wsOpCode=1;
+	int32 currentPage=2;
+	int32 pageSize=3;//pageSize传0，说明不分页
+	int32 toType=4;//1用户，2组
+	string toTypeId=5;//根据toType不一样代表的不一样
+	string chatCreateTime=6;//查创建时间这页的，如果有这个字段currentPage无效
+}
+message GetChatListS{
+	string wsOpCode=1;
+	int32 currentPage=2;
+	int32 pageSize=3;//pageSize传0，说明不分页
+	int32 totalPage=4;//总页数
+	int32 allNum=5;//总条数
+	int32 toType=6;//1用户，2组
+	string toTypeId=7;//根据toType不一样代表的不一样
+	repeated ChatMessageData message=8;
+}
+message ChatMessageData{
+	string chatId=1;
+	string chatContent=2;
+	string chatCreateTime=3;
+	string userId=4;
+}
+message ChatUserData{
+	string userId=1;
+	string userRealName=2;//如果是组里的chatGroupUserRealName，不是userRealName
+	int32 userRole=3;//如果是组里的chatGroupUserRole，不是userRole
+	string userImg=4;
+	bool isOnline=5;
+}
+message ChatGroupData{
+	string chatGroupId=1;
+	string chatGroupName=2;
+	string chatGroupCreateTime=3;
+}
+

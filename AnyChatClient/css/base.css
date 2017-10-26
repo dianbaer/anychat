@@ -1,0 +1,103 @@
+@charset "UTF-8";
+/*common*/
+table{border-collapse: collapse;table-layout: fixed;}
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,textarea,p,blockquote,th,td,input,select,textarea,button,img{padding: 0; margin: 0;font-size:14px;line-height:1;font-family:"Microsoft YaHei"; font-weight: normal;font-style: normal;color: #333;word-break:break-all}
+body{font-family:"Microsoft YaHei";position: relative;background: none}
+body,input,select,textarea,button{font-size:12px;line-height: 1}
+blockquote:before, blockquote:after,q:before, q:after{content:'';content:none}
+a{text-decoration: none;}
+fieldset,img,abbr,acronym{border: 0 none;}
+img{vertical-align:top;}
+abbr,acronym{font-variant: normal;}
+blockquote, q{quotes: none}
+dl,ul,ol,menu,li{list-style:none}
+input,button,textarea,select,optgroup,option{font-family:inherit; font-size:inherit; font-style:inherit; font-weight:inherit;}/* 输入控件字体 */
+input,select,textarea,button{vertical-align:middle;outline:none;}
+textarea{resize:none;overflow: auto;}
+input[type="button"]{cursor: pointer;}
+button{border:0 none;background-color:transparent;cursor:pointer}
+input::-moz-focus-inner{border: 0; padding: 0;}
+h1,h2,h3,h4,h5,h6{font-size: 100%;font-weight: normal}
+table{table-layout: fixed;border-collapse: collapse;}
+a:focus{outline:none;}
+input::-ms-clear,input::-ms-reveal {display:none;}
+.hide{display: none;}
+.pb0{padding-bottom: 0!important;}
+.table_demo{width: 80%;margin: 0 auto;}
+.table_demo >tbody>tr>td{border: 1px solid #ddd;padding: 20px;}
+.table_demo >tbody{padding: 10px;border:1px solid #ddd;}
+/* clearfix */
+.clearfix{ *zoom:1;}
+.clearfix:after{display:table; line-height:0; content:""; clear:both;}
+.clear{clear: both;}
+/* public.omission */
+.fl{float:left;display:inline}
+.fr{float:right;display:inline}
+.tc{ text-align:center;}
+.tr{ text-align:right;}
+h1,h2,h3,h4,h5{ font-weight:normal;}
+.pr{position:relative}
+.pa{position:absolute}
+.nobod{border: 0 !important}
+.w330{width:330px !important;}
+.w270{width: 270px !important;}
+.w500{width: 500px;}
+.h300{height: 300px;}
+.h231{height: 231px}
+.h154{height: 160px}
+/*margin start*/
+/*m-left*/
+.ml10{margin-left: 10px;}
+/*m-right*/
+.mr10{margin-right: 10px;}
+.mr30{margin-right: 30px;}
+.mr0{margin-right: 0!important;}
+/*m-top*/
+.mt10{margin-top: 10px;}
+.mt20{
+    margin-top: 20px;}
+.mt24{margin-top: 24px !important}
+.mt40{margin-top: 40px;}
+.mt12{margin-top: 12px;}
+.mt30{margin-top: 30px;}
+.mt19{margin-top: 19px;}
+.mt50{margin-top: 50px;}
+/*m-bottom*/
+.mb10{margin-bottom: 10px!important;}
+.mb20{margin-bottom: 20px;}
+.mb0{margin-bottom: 0!important;}
+.mb30{margin-bottom: 30px !important;}
+/*margin over*/
+.ov{overflow: hidden;}
+/*底部footer*/
+.footer_warp{width:100%;height:135px;background-color:#fff;border-top:1px solid #ddd;min-width: 1200px;}
+.footer{height:134px;width:1200px;margin:0 auto}
+.w1080{width:1080px}
+.link li{display:inline-block;vertical-align:middle;padding-right:12px;border-right:1px solid #999;font-size:12px;margin-left:12px}
+.link li.nobod{border:none}
+.link li.nomargin{margin:0}
+.link li a{display:inline-block;color:#999;text-decoration:none}
+.link li a:hover{color: #ff6600;text-decoration: underline;}
+.copyright{font-size:12px;color:#999;margin-top:30px}
+.footer>.fr a{width:118px;height:28px;line-height:28px;border:1px solid #d6d6d6;font-size:14px;color:#666;display:block;text-decoration:none;text-align:center}
+.footer>.fr a:hover{background:#ffe8dd;border-color:#ff6600;color: #ff6600;}
+.w120{width:120px}
+.ml0{margin-left:0!important}
+.br0{border-right:0!important}
+/*面包屑*/
+.crumb{height:32px;line-height:32px;font-size:14px;margin-bottom: 10px;clear: both;}
+.crumb li{height:32px;line-height:32px;float:left;background:url(../image/crumb.png) no-repeat right center;color:#f60;padding:0 10px;font-size: 14px}
+.crumb li a{color:#666;text-decoration:none}
+.crumb_home{background:url(../image/crumb_home.png) no-repeat 0 center;padding-left:16px}
+.crumb li.crumb_cur{background:0 0;font-weight:bold}
+/*buttons start*/
+.btn_solid,.btn_border{cursor: pointer;font-size: 13px;;width: 120px;height: 36px;box-sizing: border-box;line-height: 36px;text-align: center;float: left;letter-spacing: 2px;text-indent: -2px;}
+.btn_solid{color: #fff;background-color:#ff6600;}
+
+.btn_solid:hover{background-color:#f68e5c; }
+.btn_border{color: #ff6600; border:1px solid #ff6600;}
+.bcf{background:#fff;}
+.btn_border:hover{background-color: #ffe8dd;}
+.btn_solid.btn_press{background-color: #e65f1d;}
+.w270{width: 270px;}
+/*buttons over*/

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Insert title here</title>
+    <script src="js/lib/jquery.min.js?v=v1.0.0" type="text/javascript"></script>
+    <script src="js/lib/jquery.cookie.js?v=v1.0.0" type="text/javascript"></script>
+    <script src="js/lib/Math.uuid.js?v=v1.0.0" type="text/javascript"></script>
+    <script src="js/lib/threecss-c.js?v=v1.0.0" type="text/javascript"></script>
+</head>
+<script type="text/javascript">
+    //加载内部类
+    $T.version.loadScript("js/app/NotificationExt.js");
+    $T.version.loadScript("js/app/Url.js");
+    $T.version.loadScript("js/app/CookieParam.js");
+    $T.version.loadScript("js/app/CookieName.js");
+    $T.version.loadScript("js/app/data/websocket/LoginChatProxy.js");
+    $T.version.loadScript("js/app/data/http/TokenProxy.js");
+    $T.version.loadScript("js/app/IndexMediator.js");
+    $T.version.loadScript("js/app/module/TopMediator.js");
+    $T.version.loadScript("js/app/module/LeftMediator.js");
+    $T.version.loadScript("js/app/module/BodyMediator.js");
+    $T.version.loadScript("js/app/module/BottomMediator.js");
+    $T.version.loadScript("js/app/module/LoginMediator.js");
+    $T.version.loadScript("js/app/ChatMediator.js");
+
+    window.onload = function () {
+        //初始化内部类
+        $T.version.init();
+        //初始化过滤器
+        var testFilter = new TestFilter();
+        $T.httpResultFilter.addFilter(testFilter);
+        //初始化控制器
+        $T.indexMediator.init();
+        $T.register.register($T.indexMediator);
+    }
+</script>
+<body>
+<div>
+    <div id="index_top"></div>
+    <div id="index_left"></div>
+    <div id="index_body"></div>
+    <div id="index_chat"></div>
+    <div id="index_bottom"></div>
+</div>
+</body>
+</html>

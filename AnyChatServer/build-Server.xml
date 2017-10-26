@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<project name="Server" default="dist" basedir=".">
+	<property name="Server-src" location="${Server.dir}/src" />
+	<property name="Server-build" location="${Server.dir}/build" />
+	<property name="Server-dist" location="${Server.dir}/dist" />
+	<property name="Server-WebContent" value="${Server.dir}/WebContent" />
+	<property name="webxml" value="${Server-WebContent}/WEB-INF/web.xml" />
+	<target name="generwar" depends="distServer">
+		<war destfile="${Server-dist}/ChatServer.war" webxml="${webxml}">
+			<fileset dir="${Server-WebContent}/">
+				<include name="html/**" />
+				<include name="js/**" />
+				<include name="*.html" />
+			</fileset>
+			<lib dir="${Server-WebContent}/WEB-INF/lib">
+				<include name="*.jar" />
+			</lib>
+			<lib dir="${Server-dist}">
+				<include name="*.jar" />
+			</lib>
+			<classes dir="${Server-src}">
+				<include name="log4j.properties" />
+			</classes>
+		</war>
+	</target>
+	<path id="libs">
+		<fileset dir="${Server-WebContent}/WEB-INF/lib">
+			<include name="**/*.jar" />
+		</fileset>
+	</path>
+	<target name="init">
+		<mkdir dir="${Server-build}" />
+		<mkdir dir="${Server-dist}" />
+	</target>
+	<target name="compileServer" depends="init">
+		<javac destdir="${Server-build}" debug="true" source="1.8" target="1.8" encoding="UTF-8" includeantruntime="on">
+			<classpath>
+				<path refid="libs" />
+			</classpath>
+			<src path="${Server-src}" />
+		</javac>
+	</target>
+	<target name="distServer" depends="compileServer">
+		<jar destfile="${Server-dist}/ChatServer.jar">
+			<fileset dir="${Server-build}">
+				<include name="**/**" />
+			</fileset>
+		</jar>
+	</target>
+	<target name="dist" depends="clean, generwar" />
+	<target name="clean" description="clean up">
+		<delete dir="${Server-build}" />
+		<delete dir="${Server-dist}" />
+	</target>
+</project>

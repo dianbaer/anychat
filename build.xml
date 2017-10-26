@@ -1,0 +1,24 @@
+﻿<?xml version="1.0"?>
+<project name="Work" basedir="." default="test">
+	<property name="dist" location="${basedir}/dist" />
+	<property name="Work.dir" value="${basedir}" />
+	<property name="Server.dir" value="${basedir}/ChatServer" />
+	<property name="Config.dir" value="${basedir}/ChatConfig" />
+	<target name="build-Server" depends="">
+		<ant antfile="build-Server.xml" dir="${Server.dir}">
+		</ant>
+	</target>
+	<target name="cleandist" description="clean up">
+		<delete dir="${dist}" />
+	</target>
+	<target name="test">
+		<antcall target="cleandist" />
+		<antcall target="build-Server" />
+		<mkdir dir="${dist}" />
+		<copy file="${Server.dir}/dist/ChatServer.war" todir="${dist}" />
+		<copy file="${Server.dir}/src/ChatServer.properties" todir="${dist}" />
+		<copy file="${Work.dir}/chat.sql" todir="${dist}" />
+		<copydir dest="${dist}/ChatConfig" src="${Config.dir}"></copydir>
+		<copydir dest="${dist}/ChatClient" src="${Work.dir}/ChatClient"></copydir>
+	</target>
+</project>

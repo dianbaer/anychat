@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE generatorConfiguration   
+  PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"   
+  "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">  
+
+<generatorConfiguration>  
+
+    <context id="DB2Tables" targetRuntime="Mybatis3">
+        <property name="javaFileEncoding" value="UTF-8"/>
+        <property name="suppressTypeWarnings" value="true" />
+        <plugin type="org.mybatis.generator.plugins.EqualsHashCodePlugin" />
+        <plugin type="org.mybatis.generator.plugins.SerializablePlugin" />
+        <plugin type="org.mybatis.generator.plugins.CaseInsensitiveLikePlugin" />
+        <plugin type="plugin.PaginationPlugin"/>
+        <plugin type="org.mybatis.generator.plugins.RenameExampleClassPlugin">
+        	<property name="searchString" value="Example$" />
+        	<property name="replaceString" value="Criteria" />
+        </plugin>
+
+        <!-- 自动生成的注释 suppressAllComments 注释、suppressDate 时间标签 -->
+        <commentGenerator>
+            <property name="suppressAllComments" value="false" />
+            <property name="suppressDate" value="true" />
+        </commentGenerator>
+
+        <!-- JDBC连接信息 -->
+        <jdbcConnection 
+        	driverClass="org.mariadb.jdbc.Driver" 
+            connectionURL="jdbc:mysql://localhost:3307/chat?useUnicode=true&amp;characterEncoding=utf8" 
+            userId="root" 
+            password="root">
+        </jdbcConnection>
+
+        <!-- 类型转换的信息 -->
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false" />
+        </javaTypeResolver>
+
+        <!-- 生成bean -->
+        <javaModelGenerator 
+        	targetPackage="dao.model.base"  
+            targetProject="src">
+            <property name="enableSubPackages" value="true" />
+            <property name="trimStrings" value="true" />
+        </javaModelGenerator>
+
+        <!-- 生成sqlMapper XML文件 -->
+        <sqlMapGenerator 
+        	targetPackage="dao.mappers.base"  
+            targetProject="src">
+            <property name="enableSubPackages" value="true" />
+        </sqlMapGenerator>
+
+        <!-- 生成应用接口 -->
+        <javaClientGenerator 
+        	type="XMLMAPPER"  
+            targetPackage="dao.dao.base" 
+            targetProject="src">
+            <property name="enableSubPackages" value="true" />
+        </javaClientGenerator>
+        <table tableName="chat"/>
+        <table tableName="chat_group"/>
+        <table tableName="chat_group_user"/>
+	</context>
+</generatorConfiguration>
