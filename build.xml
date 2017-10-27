@@ -18,6 +18,7 @@
 		<copy file="${Server.dir}/dist/AnyChatServer.war" todir="${dist}" />
 		<copy file="${Server.dir}/src/AnyChatServer.properties" todir="${dist}" />
 		<copy file="${Work.dir}/anychat.sql" todir="${dist}" />
+		<copy file="${Work.dir}/anychat_mongodb.sh" todir="${dist}" />
 		<copydir dest="${dist}/AnyChatConfig" src="${Config.dir}"></copydir>
 		<copydir dest="${dist}/AnyChatClient" src="${Work.dir}/AnyChatClient"></copydir>
 	</target>
