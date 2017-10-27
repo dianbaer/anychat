@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.anychat.dao.ext.ChatMapperExt">
+  <resultMap id="BaseResultMap" type="org.anychat.model.base.Chat">
+    
+    <id column="chat_id" jdbcType="VARCHAR" property="chatId" />
+    <result column="chat_content" jdbcType="VARCHAR" property="chatContent" />
+    <result column="from_user_id" jdbcType="VARCHAR" property="fromUserId" />
+    <result column="to_type" jdbcType="TINYINT" property="toType" />
+    <result column="to_type_id" jdbcType="VARCHAR" property="toTypeId" />
+    <result column="chat_state" jdbcType="TINYINT" property="chatState" />
+    <result column="chat_type" jdbcType="TINYINT" property="chatType" />
+    <result column="chat_create_time" jdbcType="TIMESTAMP" property="chatCreateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    chat_id, chat_content, from_user_id, to_type, to_type_id, chat_state, chat_type, 
+    chat_create_time
+  </sql>
+
+
+  <select id="countByExample" parameterType="org.anychat.model.ext.ChatCriteriaExt" resultType="java.lang.Long">
+    
+    select count(*) from chat where to_type=#{toType} and ((from_user_id=#{fromUserId} and to_type_id=#{toTypeId}) or (from_user_id=#{toTypeId} and to_type_id=#{fromUserId})) and chat_state=#{chatState}
+   	<if test="chatCreateTime != null">
+   	 and chat_create_time &lt; #{chatCreateTime}
+    </if>
+    order by chat_create_time asc
+  </select>
+  <select id="selectByExample" parameterType="org.anychat.model.ext.ChatCriteriaExt" resultMap="BaseResultMap">
+    
+    select  
+    <include refid="Base_Column_List" /> 
+    from chat where to_type=#{toType} and ((from_user_id=#{fromUserId} and to_type_id=#{toTypeId}) or (from_user_id=#{toTypeId} and to_type_id=#{fromUserId})) and chat_state=#{chatState} order by chat_create_time asc limit #{limitStart},#{pageSize}
+  </select>
+</mapper>

@@ -46,10 +46,10 @@
 	</environments>
 
     <mappers>
-        <mapper resource="dao/mappers/base/ChatMapper.xml" />
-        <mapper resource="dao/mappers/ext/ChatMapperExt.xml" />
-        <mapper resource="dao/mappers/base/ChatGroupMapper.xml" />
-        <mapper resource="dao/mappers/base/ChatGroupUserMapper.xml" />
-        <mapper resource="dao/mappers/ext/ChatGroupUserMapperExt.xml" />
+        <mapper resource="org/anychat/mappers/base/ChatMapper.xml" />
+        <mapper resource="org/anychat/mappers/ext/ChatMapperExt.xml" />
+        <mapper resource="org/anychat/mappers/base/ChatGroupMapper.xml" />
+        <mapper resource="org/anychat/mappers/base/ChatGroupUserMapper.xml" />
+        <mapper resource="org/anychat/mappers/ext/ChatGroupUserMapperExt.xml" />
 	</mappers>
 </configuration> 

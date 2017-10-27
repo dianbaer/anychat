@@ -3,7 +3,7 @@
   <display-name>AnyChatServer</display-name>
    <servlet>
     <servlet-name>InitServlet</servlet-name>
-    <servlet-class>init.InitServlet</servlet-class>
+    <servlet-class>org.anychat.init.InitServlet</servlet-class>
     <load-on-startup>0</load-on-startup>
   </servlet>
   <context-param>

@@ -1,5 +1,5 @@
 syntax = "proto3";
-package protobuf.ws;
+package org.anychat.protobuf.ws;
 message LoginChatServerC{
 	string wsOpCode=1;
 	string token=2;//身份
