@@ -39,9 +39,9 @@ public class InitServlet extends HttpServlet {
 	public void init() throws ServletException {
 		// TODO Auto-generated method stub
 		super.init();
-
+		WebSocketLog log = null;
 		try {
-			WebSocketLog log = new WebSocketLog();
+			log = new WebSocketLog();
 			WSManager.init(log);
 			TimeZone.setDefault(TimeZone.getTimeZone("Asia/Shanghai"));
 			ServletContext servletContext = this.getServletContext();
@@ -71,7 +71,9 @@ public class InitServlet extends HttpServlet {
 			}
 
 		} catch (Exception e) {
-			// TODO: handle exception
+			if (log != null) {
+				log.error("启动失败", e);
+			}
 		}
 
 	}
