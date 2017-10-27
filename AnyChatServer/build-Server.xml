@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <project name="Server" default="dist" basedir=".">
-	<property name="Server-src" location="${Server.dir}/src" />
+	<property name="Server-src" location="${Server.dir}/src/main/java" />
 	<property name="Server-build" location="${Server.dir}/build" />
 	<property name="Server-dist" location="${Server.dir}/dist" />
 	<property name="Server-WebContent" value="${Server.dir}/WebContent" />

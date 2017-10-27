@@ -16,7 +16,7 @@
 		<antcall target="build-Server" />
 		<mkdir dir="${dist}" />
 		<copy file="${Server.dir}/dist/AnyChatServer.war" todir="${dist}" />
-		<copy file="${Server.dir}/src/AnyChatServer.properties" todir="${dist}" />
+		<copy file="${Server.dir}/src/main/java/AnyChatServer.properties" todir="${dist}" />
 		<copy file="${Work.dir}/anychat.sql" todir="${dist}" />
 		<copy file="${Work.dir}/anychat_mongodb.sh" todir="${dist}" />
 		<copydir dest="${dist}/AnyChatConfig" src="${Config.dir}"></copydir>
