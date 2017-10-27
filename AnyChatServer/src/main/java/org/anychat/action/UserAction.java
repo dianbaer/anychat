@@ -22,7 +22,7 @@ public class UserAction {
 		Map<String, String> header = new HashMap<>();
 		header.put("hOpCode", "11");
 		header.put("token", token);
-		byte[] returnByte = HttpUtil.send(js.toString(), CommonConfigChat.UCENTER_URL, header, HttpUtil.POST);
+		byte[] returnByte = HttpUtil.send(js.toString(), CommonConfigChat.IDENTITY_URL, header, HttpUtil.POST);
 		if (returnByte != null) {
 			String str = null;
 			try {
@@ -48,7 +48,7 @@ public class UserAction {
 		Map<String, String> header = new HashMap<>();
 		header.put("hOpCode", "13");
 		header.put("token", token);
-		byte[] returnByte = HttpUtil.send(js.toString(), CommonConfigChat.UCENTER_URL, header, HttpUtil.POST);
+		byte[] returnByte = HttpUtil.send(js.toString(), CommonConfigChat.IDENTITY_URL, header, HttpUtil.POST);
 		if (returnByte != null) {
 			String str = null;
 			try {

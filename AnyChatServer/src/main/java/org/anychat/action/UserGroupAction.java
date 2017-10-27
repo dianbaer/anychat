@@ -20,7 +20,7 @@ public class UserGroupAction {
 		header.put("hOpCode", "3");
 		header.put("token", token);
 
-		byte[] returnByte = HttpUtil.send(js.toString(), CommonConfigChat.UCENTER_URL, header, HttpUtil.POST);
+		byte[] returnByte = HttpUtil.send(js.toString(), CommonConfigChat.IDENTITY_URL, header, HttpUtil.POST);
 		if (returnByte != null) {
 			String str = null;
 			try {

@@ -4,7 +4,7 @@ import java.util.Properties;
 
 public class CommonConfigChat {
 
-	public static String UCENTER_URL;
+	public static String IDENTITY_URL;
 	public static String MONGODB_URL;
 	public static int MONGODB_PORT;
 	public static String MONGODB_USERNAME;
@@ -14,7 +14,7 @@ public class CommonConfigChat {
 
 	public static void init(Properties properties) {
 
-		UCENTER_URL = properties.getProperty("uCenterUrl");
+		IDENTITY_URL = properties.getProperty("identityUrl");
 
 		MONGODB_URL = properties.getProperty("mongodbUrl");
 		MONGODB_PORT = Integer.valueOf(properties.getProperty("mongodbPort"));
