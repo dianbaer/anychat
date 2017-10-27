@@ -6,7 +6,7 @@
 	<property name="Server-WebContent" value="${Server.dir}/WebContent" />
 	<property name="webxml" value="${Server-WebContent}/WEB-INF/web.xml" />
 	<target name="generwar" depends="distServer">
-		<war destfile="${Server-dist}/ChatServer.war" webxml="${webxml}">
+		<war destfile="${Server-dist}/AnyChatServer.war" webxml="${webxml}">
 			<fileset dir="${Server-WebContent}/">
 				<include name="html/**" />
 				<include name="js/**" />
@@ -41,7 +41,7 @@
 		</javac>
 	</target>
 	<target name="distServer" depends="compileServer">
-		<jar destfile="${Server-dist}/ChatServer.jar">
+		<jar destfile="${Server-dist}/AnyChatServer.jar">
 			<fileset dir="${Server-build}">
 				<include name="**/**" />
 			</fileset>
