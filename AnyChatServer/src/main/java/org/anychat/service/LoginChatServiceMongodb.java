@@ -9,8 +9,7 @@ import javax.websocket.Session;
 import org.anychat.action.ChatActionMongodb;
 import org.anychat.action.ChatGroupAction;
 import org.anychat.action.ChatGroupUserAction;
-import org.anychat.action.UserAction;
-import org.anychat.action.UserGroupAction;
+import org.anychat.action.IdentityAction;
 import org.anychat.data.OnlineUserManagerMongodb;
 import org.anychat.data.OnlineUserMongodb;
 import org.anychat.data.UserData;
@@ -55,7 +54,7 @@ public class LoginChatServiceMongodb implements IWSListener, IMsgListener {
 		LoginChatServerC builder1 = (LoginChatServerC) wsPacket.getData();
 		String token = builder1.getToken();
 		Session session = (Session) wsPacket.session;
-		UserData userData = UserAction.getUser(token);
+		UserData userData = IdentityAction.getUser(token);
 		if (userData == null) {
 			// 获取用户数据为空
 			return;
@@ -82,7 +81,7 @@ public class LoginChatServiceMongodb implements IWSListener, IMsgListener {
 		// 聊天组列表
 		List<ChatGroup> chatGroupList = null;
 		if (!StringUtil.stringIsNull(userData.getUserGroupTopId())) {
-			friendList = UserAction.getFriendList(userData.getUserGroupTopId(), token);
+			friendList = IdentityAction.getFriendList(userData.getUserGroupTopId(), token);
 			// 好友列表不可能为空
 			if (friendList == null || friendList.size() == 0) {
 				return;
@@ -91,7 +90,7 @@ public class LoginChatServiceMongodb implements IWSListener, IMsgListener {
 			List<ChatGroup> userGroupList = ChatGroupAction.getChatGroupList(userData.getUserGroupTopId());
 			ChatGroup chatGroup = null;
 			if (userGroupList == null || userGroupList.size() == 0) {
-				UserGroupData userGroupData = UserGroupAction.getUserGroup(userData.getUserGroupTopId(), token);
+				UserGroupData userGroupData = IdentityAction.getUserGroup(userData.getUserGroupTopId(), token);
 				if (userGroupData == null) {
 					return;
 				}
@@ -150,7 +149,7 @@ public class LoginChatServiceMongodb implements IWSListener, IMsgListener {
 		}
 		LoginChatServerS.Builder builder = LoginChatServerS.newBuilder();
 		builder.setWsOpCode(WsOpCodeChat.LOGIN_CHAT_SERVER_S);
-		builder.setChatUser(UserAction.getChatUserDataBuilder(userData, true));
+		builder.setChatUser(IdentityAction.getChatUserDataBuilder(userData, true));
 		if (friendList != null) {
 			for (int i = 0; i < friendList.size(); i++) {
 				UserData friendUserData = friendList.get(i);
@@ -163,7 +162,7 @@ public class LoginChatServiceMongodb implements IWSListener, IMsgListener {
 				if (friendOnlineUser != null) {
 					isOnline = true;
 				}
-				builder.addChatUserList(UserAction.getChatUserDataBuilder(friendUserData, isOnline));
+				builder.addChatUserList(IdentityAction.getChatUserDataBuilder(friendUserData, isOnline));
 				// 初始化表
 				ChatActionMongodb.createChatUserToUserCollection(friendUserData.getUserId(), userData.getUserId());
 			}
@@ -185,7 +184,7 @@ public class LoginChatServiceMongodb implements IWSListener, IMsgListener {
 		}
 		ChatUserOnlineS.Builder chatUserOnlineBuilder = ChatUserOnlineS.newBuilder();
 		chatUserOnlineBuilder.setWsOpCode(WsOpCodeChat.USER_ONLINE_S);
-		chatUserOnlineBuilder.setChatUser(UserAction.getChatUserDataBuilder(userData, true));
+		chatUserOnlineBuilder.setChatUser(IdentityAction.getChatUserDataBuilder(userData, true));
 		WsPacket sendOnlineWsPacket = new WsPacket(WsOpCodeChat.USER_ONLINE_S, chatUserOnlineBuilder.build());
 		// 广播给在线好友上线
 		if (friendList != null) {
@@ -213,7 +212,7 @@ public class LoginChatServiceMongodb implements IWSListener, IMsgListener {
 		OnlineUserMongodb onlineUser = (OnlineUserMongodb) msgPacket.getOtherData();
 		List<UserData> friendList = null;
 		if (!StringUtil.stringIsNull(onlineUser.getUserData().getUserGroupTopId())) {
-			friendList = UserAction.getFriendList(onlineUser.getUserData().getUserGroupTopId(), onlineUser.getToken());
+			friendList = IdentityAction.getFriendList(onlineUser.getUserData().getUserGroupTopId(), onlineUser.getToken());
 			if (friendList != null && friendList.size() != 0) {
 				ChatUserOfflineS.Builder chatUserOfflineSBuilder = ChatUserOfflineS.newBuilder();
 				chatUserOfflineSBuilder.setWsOpCode(WsOpCodeChat.USER_OFFLINE_S);
