@@ -44,13 +44,55 @@
             //链接聊天服务器
             this.loginChatServer();
             //添加发送聊天信息的监听
-            $("#sendChat").on("click", this.onSendChat);
-            $(".history_P").on("click", this.onClickHistory);
-            $("#firstPage").on("click", this.onFirstPage);
-            $("#prePage").on("click", this.onPrePage);
-            $("#nextPage").on("click", this.onNextPage);
-            $("#lastPage").on("click", this.onLastPage);
-            $("#returnChat").on("click", this.onReturnChat);
+            this.addSendChat(this, this.onSendChat);
+            this.addHistory(this, this.onClickHistory);
+            this.addFirstPage(this, this.onFirstPage);
+            this.addPrePage(this, this.onPrePage);
+            this.addNextPage(this, this.onNextPage);
+            this.addLastPage(this, this.onLastPage);
+            this.addReturnChat(this, this.onReturnChat);
+        };
+        this.addSendChat = function (mediator, call) {
+            var callFunc = function (event) {
+                call.call(mediator, event);
+            };
+            $("#sendChat").on("click", callFunc);
+        };
+        this.addHistory = function (mediator, call) {
+            var callFunc = function (event) {
+                call.call(mediator, event);
+            };
+            $(".history_P").on("click", callFunc);
+        };
+        this.addFirstPage = function (mediator, call) {
+            var callFunc = function (event) {
+                call.call(mediator, event);
+            };
+            $("#firstPage").on("click", callFunc);
+        };
+        this.addPrePage = function (mediator, call) {
+            var callFunc = function (event) {
+                call.call(mediator, event);
+            };
+            $("#prePage").on("click", callFunc);
+        };
+        this.addNextPage = function (mediator, call) {
+            var callFunc = function (event) {
+                call.call(mediator, event);
+            };
+            $("#nextPage").on("click", callFunc);
+        };
+        this.addLastPage = function (mediator, call) {
+            var callFunc = function (event) {
+                call.call(mediator, event);
+            };
+            $("#lastPage").on("click", callFunc);
+        };
+        this.addReturnChat = function (mediator, call) {
+            var callFunc = function (event) {
+                call.call(mediator, event);
+            };
+            $("#returnChat").on("click", callFunc);
         };
         //链接聊天服务器
         this.loginChatServer = function () {
@@ -117,7 +159,7 @@
             }
         };
         this.onReturnChat = function () {
-            talkMediator.nowModule = 1;
+            this.nowModule = 1;
             $(this).parents(".windowR_P.left2_P").hide().prev().show();
             //下拉滚动条
             $('.talkCon_P').mCustomScrollbar('scrollTo', 'bottom')
