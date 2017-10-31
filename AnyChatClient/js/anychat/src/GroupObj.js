@@ -14,7 +14,7 @@
         this.createView = function () {
             var view = document.createElement("li");
             view.className = "talkGroup_P";
-            view.innerHTML = '<img src="image/groupIcon.png" alt=""/><span class="titleSty2_P">' + this.group.chatGroupName + '</span>';
+            view.innerHTML = '<img src="js/anychat/images/groupIcon.png" alt=""/><span class="titleSty2_P">' + this.group.chatGroupName + '</span>';
             this.view = $(view);
         };
         this.addOptListener = function () {

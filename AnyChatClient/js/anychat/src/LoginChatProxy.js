@@ -52,7 +52,7 @@
             this.notifyObservers(this.getNotification(notificationExt.CHAT_USER_MESSAGE, event.mData));
             // 回复服务器，这些信息接收到了
             var data = event.mData;
-            if (data.message !== null) {
+            if (data.message !== null && data.message !== undefined) {
                 var messageId = [];
                 for (var i = 0; i < data.message.length; i++) {
                     var message = data.message[i];
@@ -69,7 +69,7 @@
             this.notifyObservers(this.getNotification(notificationExt.CHAT_GROUP_MESSAGE, event.mData));
             // 回复服务器，这些信息收到了，只告诉服务器最后一条即可
             var data = event.mData;
-            if (data.message !== null) {
+            if (data.message !== null && data.message !== undefined) {
                 this.sendGroupMessageReceive(data.message[data.message.length - 1].chatId, data.chatGroupId);
             }
         };
