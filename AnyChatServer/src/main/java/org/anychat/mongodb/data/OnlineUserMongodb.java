@@ -1,4 +1,4 @@
-package org.anychat.data;
+package org.anychat.mongodb.data;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -9,9 +9,10 @@ import java.util.concurrent.LinkedBlockingQueue;
 
 import javax.websocket.Session;
 
-import org.anychat.action.ChatActionMongodb;
 import org.anychat.action.ChatGroupUserAction;
+import org.anychat.data.UserData;
 import org.anychat.model.base.ChatGroupUser;
+import org.anychat.mongodb.action.ChatActionMongodb;
 import org.anychat.msg.MsgOpCodeChat;
 import org.anychat.protobuf.msg.UserOfflineMsg.UserOffline;
 import org.anychat.protobuf.ws.LoginChatProto.GroupMessageS;

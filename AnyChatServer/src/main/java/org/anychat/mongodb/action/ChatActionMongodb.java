@@ -1,11 +1,11 @@
-package org.anychat.action;
+package org.anychat.mongodb.action;
 
 import java.util.Date;
 import java.util.List;
 
 import org.anychat.config.ChatConfig;
-import org.anychat.data.ChatConfigMongodb;
-import org.anychat.data.ChatObj;
+import org.anychat.mongodb.data.ChatConfigMongodb;
+import org.anychat.mongodb.data.ChatObj;
 import org.anychat.protobuf.ws.LoginChatProto.ChatMessageData;
 import org.anychat.tool.StringUtil;
 import org.anychat.tool.TimeUtils;

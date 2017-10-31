@@ -1,4 +1,4 @@
-package org.anychat.data;
+package org.anychat.mongodb.data;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;

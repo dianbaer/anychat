@@ -1,4 +1,4 @@
-package org.anychat.service;
+package org.anychat.mongodb.service;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -7,13 +7,13 @@ import java.util.Map;
 
 import javax.websocket.Session;
 
-import org.anychat.action.ChatActionMongodb;
 import org.anychat.action.ChatGroupUserAction;
 import org.anychat.config.ChatConfig;
-import org.anychat.data.ChatObj;
-import org.anychat.data.OnlineUserManagerMongodb;
-import org.anychat.data.OnlineUserMongodb;
 import org.anychat.model.base.ChatGroupUser;
+import org.anychat.mongodb.action.ChatActionMongodb;
+import org.anychat.mongodb.data.ChatObj;
+import org.anychat.mongodb.data.OnlineUserManagerMongodb;
+import org.anychat.mongodb.data.OnlineUserMongodb;
 import org.anychat.protobuf.ws.LoginChatProto.GetChatListC;
 import org.anychat.protobuf.ws.LoginChatProto.GetChatListS;
 import org.anychat.protobuf.ws.LoginChatProto.GroupMessageReceiveC;

@@ -1,4 +1,4 @@
-package org.anychat.log;
+package org.anychat.mongodb.log;
 
 import org.grain.log.ILog;
 import org.slf4j.Logger;

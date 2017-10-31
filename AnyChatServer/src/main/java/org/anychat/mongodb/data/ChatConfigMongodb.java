@@ -1,4 +1,4 @@
-package org.anychat.data;
+package org.anychat.mongodb.data;
 
 public class ChatConfigMongodb {
 	// 发送对象的类型
