@@ -17,6 +17,13 @@ import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 public class IdentityAction {
+	/**
+	 * 获取用户信息
+	 * 
+	 * @param token
+	 *            身份
+	 * @return
+	 */
 	public static UserData getUser(String token) {
 		JSONObject js = new JSONObject();
 		js.put("hOpCode", "11");
@@ -42,6 +49,15 @@ public class IdentityAction {
 		return null;
 	}
 
+	/**
+	 * 获取好友列表相当于组里的所有人
+	 * 
+	 * @param userGroupTopId
+	 *            组id
+	 * @param token
+	 *            身份
+	 * @return
+	 */
 	public static List<UserData> getFriendList(String userGroupTopId, String token) {
 		JSONObject js = new JSONObject();
 		js.put("hOpCode", "13");
@@ -74,6 +90,15 @@ public class IdentityAction {
 		return null;
 	}
 
+	/**
+	 * 获取组的信息
+	 * 
+	 * @param userGroupId
+	 *            组id
+	 * @param token
+	 *            身份
+	 * @return
+	 */
 	public static UserGroupData getUserGroup(String userGroupId, String token) {
 		JSONObject js = new JSONObject();
 		js.put("hOpCode", "3");
@@ -101,10 +126,19 @@ public class IdentityAction {
 		return null;
 	}
 
+	/**
+	 * 构建用户信息数据
+	 * 
+	 * @param userData
+	 *            用户数据
+	 * @param isOnline
+	 *            是否在线
+	 * @return
+	 */
 	public static ChatUserData.Builder getChatUserDataBuilder(UserData userData, boolean isOnline) {
 		ChatUserData.Builder builder = ChatUserData.newBuilder();
 		builder.setUserId(userData.getUserId());
-		builder.setUserImg(userData.getUserImg());
+		builder.setUserImg(userData.getUserImgUrl());
 		builder.setUserRealName(userData.getUserRealName());
 		builder.setUserRole(userData.getUserRole());
 		builder.setIsOnline(isOnline);

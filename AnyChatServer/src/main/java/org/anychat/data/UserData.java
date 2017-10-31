@@ -3,11 +3,25 @@ package org.anychat.data;
 import net.sf.json.JSONObject;
 
 public class UserData {
+	/**
+	 * 用户唯一id
+	 */
 	private String userId;
+	/**
+	 * 聊天的名字
+	 */
 	private String userRealName;
+	/**
+	 * 属于哪个组织,用于获取好友列表，组织信息
+	 */
 	private String userGroupTopId;
+	/**
+	 * 用户角色 1管理员，2普通成员
+	 */
 	private int userRole;
-	private String userImg;
+	/**
+	 * 用户头像url
+	 */
 	private String userImgUrl;
 
 	public UserData(JSONObject userData) {
@@ -22,9 +36,6 @@ public class UserData {
 		}
 		if (userData.containsKey("userRole")) {
 			this.userRole = userData.getInt("userRole");
-		}
-		if (userData.containsKey("userImg")) {
-			this.userImg = userData.getString("userImg");
 		}
 		if (userData.containsKey("userImgUrl")) {
 			this.userImgUrl = userData.getString("userImgUrl");
@@ -61,14 +72,6 @@ public class UserData {
 
 	public void setUserRole(int userRole) {
 		this.userRole = userRole;
-	}
-
-	public String getUserImg() {
-		return userImg;
-	}
-
-	public void setUserImg(String userImg) {
-		this.userImg = userImg;
 	}
 
 	public String getUserImgUrl() {

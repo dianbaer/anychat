@@ -3,7 +3,13 @@ package org.anychat.data;
 import net.sf.json.JSONObject;
 
 public class UserGroupData {
+	/**
+	 * 组的id，唯一
+	 */
 	private String userGroupId;
+	/**
+	 * 组的名字
+	 */
 	private String userGroupName;
 
 	public UserGroupData(JSONObject userGroupData) {
