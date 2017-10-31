@@ -115,10 +115,12 @@ public class MessageService implements IWSListener {
 		GroupMessageReceiveC builder1 = (GroupMessageReceiveC) wsPacket.getData();
 		Chat chat = ChatAction.getChatById(builder1.getEndChatId());
 		if (chat == null) {
+			wsPacket.putMonitor("获取聊天记录为空，请查看问题");
 			return;
 		}
 		ChatGroupUser chatGroupUser = ChatGroupUserAction.updateChatGroupUser(onlineUser.getUserId(), chat.getToTypeId(), chat.getChatCreateTime());
 		if (chatGroupUser == null) {
+			wsPacket.putMonitor("修改组内用户更新时间失败，请查看问题");
 			return;
 		}
 		// 修改成功
