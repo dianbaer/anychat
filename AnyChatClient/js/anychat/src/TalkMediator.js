@@ -37,7 +37,7 @@
         this.initView = function (view) {
             //获取url传递过来的token
             this.token = getUrlParam.getUrlParam("token");
-            if (this.token === null) {
+            if (this.token === null || this.token === undefined) {
                 //token是空应该提示无法登陆
                 return;
             }
@@ -105,7 +105,7 @@
         };
         //断开聊天服务器
         this.logoutChatServer = function () {
-            if (this.webSocketClient !== null) {
+            if (this.webSocketClient !== null && this.webSocketClient !== undefined) {
                 this.webSocketClient.close();
                 this.webSocketClient.removeEventListeners();
                 this.webSocketClient = null;
@@ -168,7 +168,7 @@
         this.userOnline = function (body) {
             var userObj = this.userMap[body.chatUser.userId];
             //说明在好友列表里
-            if (userObj !== null) {
+            if (userObj !== null && userObj !== undefined) {
                 userObj.user = body.chatUser;
                 userObj.onLine();
                 this.onlineNum++;
@@ -178,12 +178,12 @@
                 var displayNode;
                 for (var i = 0; i < childNodes.length; i++) {
                     var node = childNodes[i];
-                    if (node.id !== null) {
+                    if (node.id !== null && node.id !== undefined) {
                         displayNode = node;
                         break;
                     }
                 }
-                if (displayNode !== null) {
+                if (displayNode !== null && displayNode !== undefined) {
                     if (displayNode.id !== userObj.user.userId) {
                         $("#" + displayNode.id).before($("#" + userObj.user.userId));
                     }
@@ -205,7 +205,7 @@
         //好友下线
         this.userOffline = function (body) {
             var userObj = this.userMap[body.userId];
-            if (userObj !== null) {
+            if (userObj !== null && userObj !== undefined) {
                 userObj.user.isOnline = false;
                 userObj.offLine();
                 this.onlineNum--;
@@ -216,12 +216,12 @@
                 var displayNode;
                 for (var i = childNodes.length - 1; i >= 0; i--) {
                     var node = childNodes[i];
-                    if (node.id !== null) {
+                    if (node.id !== null && node.id !== undefined) {
                         displayNode = node;
                         break;
                     }
                 }
-                if (displayNode !== null) {
+                if (displayNode !== null && displayNode !== undefined) {
                     if (displayNode.id !== userObj.user.userId) {
                         $("#" + displayNode.id).after($("#" + userObj.user.userId));
                     }
@@ -237,7 +237,7 @@
             this.own = body.chatUser;
             var firstGroup;
             //初始化聊天组
-            if (body.chatGroupList !== null) {
+            if (body.chatGroupList !== null && body.chatGroupList !== undefined) {
                 for (var i = 0; i < body.chatGroupList.length; i++) {
                     var userGroup = body.chatGroupList[i];
                     var groupObj = new GroupObj();
@@ -253,7 +253,7 @@
                 }
             }
             //初始化好友列表
-            if (body.chatUserList !== null) {
+            if (body.chatUserList !== null && body.chatUserList !== undefined) {
                 for (var i = 0; i < body.chatUserList.length; i++) {
                     var user = body.chatUserList[i];
                     var userObj = new UserObj();
@@ -292,7 +292,7 @@
             this.nowToObj = event.mTarget;
             $("#chatList #mCSB_2_container")[0].innerHTML = "";
             //如果是用户
-            if (event.mTarget.user !== null) {
+            if (event.mTarget.user !== null && event.mTarget.user !== undefined) {
                 $("#toTypeName").text(this.nowToObj.user.userRealName);
                 this.openChat(event.mTarget.chatList);
                 //修改聊天记录的
@@ -356,7 +356,7 @@
         this.onUserMessage = function (body) {
             var showHaveMsg = true;
             //如果是当前聊天对象则直接显示
-            if (this.nowToObj.user !== null) {
+            if (this.nowToObj.user !== null && this.nowToObj.user !== undefined) {
                 if (this.nowToObj.user.userId === body.userId) {
                     this.openChat(body.message);
                     showHaveMsg = false;
@@ -371,7 +371,7 @@
         };
         this.onToUserMessage = function (body) {
             //如果是当前聊天对象则显示
-            if (this.nowToObj.user !== null) {
+            if (this.nowToObj.user !== null && this.nowToObj.user !== undefined) {
                 if (this.nowToObj.user.userId === body.toUserId) {
                     this.openChat([body.message]);
                 }
@@ -382,7 +382,7 @@
         this.onGroupMessage = function (body) {
             //如果是当前聊天对象则显示
             var showHaveMsg = true;
-            if (this.nowToObj.group !== null) {
+            if (this.nowToObj.group !== null && this.nowToObj.group !== undefined) {
                 if (this.nowToObj.group.chatGroupId === body.chatGroupId) {
                     this.openChat(body.message);
                     showHaveMsg = false;
@@ -398,12 +398,12 @@
         //发送聊天
         this.onSendChat = function () {
             var chatContent = $(this).parents(".windowR_P").find(".ke-edit-iframe").contents().find(".ke-content").html();
-            if (chatContent === null || chatContent === "") {
+            if (chatContent === null || chatContent === "" || chatContent === undefined) {
                 return;
             }
             var toType;
             var toTypeId;
-            if (this.nowToObj.user !== null) {
+            if (this.nowToObj.user !== null && this.nowToObj.user !== undefined) {
                 toType = 1;
                 toTypeId = this.nowToObj.user.userId;
             } else {
@@ -456,7 +456,7 @@
             $("#prePage").removeClass("disabled_P");
             $("#nextPage").removeClass("disabled_P");
             $("#lastPage").removeClass("disabled_P");
-            if (this.currentPage === this.totalPage || this.totalPage === null) {
+            if (this.currentPage === this.totalPage || this.totalPage === null || this.totalPage === undefined) {
                 $("#nextPage").addClass("disabled_P");
                 $("#lastPage").addClass("disabled_P");
             }
@@ -465,7 +465,7 @@
                 $("#prePage").addClass("disabled_P");
             }
             $("#histortChat").text("");
-            if (body.message !== null && body.message.length !== 0) {
+            if (body.message !== null && body.message !== undefined && body.message.length !== 0) {
                 for (var i = 0; i < body.message.length; i++) {
                     var msg = body.message[i];
                     var view = this.createHistoryChat(msg);
@@ -497,7 +497,7 @@
         this.getHistoryChatList = function (currentPage, chatCreateTime) {
             var toType;
             var toTypeId;
-            if (this.nowToObj.user !== null) {
+            if (this.nowToObj.user !== null && this.nowToObj.user !== undefined) {
                 toType = 1;
                 toTypeId = this.nowToObj.user.userId;
             } else {
