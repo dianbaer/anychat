@@ -119,7 +119,9 @@ public class OnlineUserMongodb implements ICycle {
 
 	public boolean send(WsPacket wsPacket) {
 		try {
-			session.getBasicRemote().sendObject(wsPacket);
+			if (session.isOpen()) {
+				session.getBasicRemote().sendObject(wsPacket);
+			}
 			return true;
 		} catch (Exception e) {
 			WSManager.log.error("发送给客户端异常wsOpcode:" + wsPacket.getWsOpCode(), e);
