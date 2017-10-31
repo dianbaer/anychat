@@ -158,11 +158,11 @@
                     break;
             }
         };
-        this.onReturnChat = function () {
+        this.onReturnChat = function (event) {
             this.nowModule = 1;
-            $(this).parents(".windowR_P.left2_P").hide().prev().show();
+            $(event.target).parents(".windowR_P.left2_P").hide().prev().show();
             //下拉滚动条
-            $('.talkCon_P').mCustomScrollbar('scrollTo', 'bottom')
+            //$('.talkCon_P').mCustomScrollbar('scrollTo', 'bottom')
         };
         //好友上线的操作
         this.userOnline = function (body) {
@@ -325,7 +325,7 @@
                 $("#chatList #mCSB_2_container").append(view);
             }
             //下拉滚动条
-            $('.talkCon_P').mCustomScrollbar('scrollTo', 'bottom')
+            //$('.talkCon_P').mCustomScrollbar('scrollTo', 'bottom')
         };
         //他人的聊天显示
         this.createOtherUserChat = function (chat) {
@@ -396,8 +396,8 @@
             this.groupMap[body.chatGroupId].chatList = this.groupMap[body.chatGroupId].chatList.concat(body.message);
         };
         //发送聊天
-        this.onSendChat = function () {
-            var chatContent = $(this).parents(".windowR_P").find(".ke-edit-iframe").contents().find(".ke-content").html();
+        this.onSendChat = function (event) {
+            var chatContent = $(event.target).parents(".windowR_P").find(".ke-edit-iframe").contents().find(".ke-content").html();
             if (chatContent === null || chatContent === "" || chatContent === undefined) {
                 return;
             }
@@ -410,7 +410,7 @@
                 toType = 2;
                 toTypeId = this.nowToObj.group.chatGroupId;
             }
-            $(this).parents(".windowR_P").find(".ke-edit-iframe").contents().find(".ke-content").html("");
+            $(event.target).parents(".windowR_P").find(".ke-edit-iframe").contents().find(".ke-content").html("");
             loginChatProxy.sendMessage(chatContent, toType, toTypeId);
         };
         this.onClickHistory = function () {
@@ -505,24 +505,6 @@
                 toTypeId = this.nowToObj.group.chatGroupId;
             }
             loginChatProxy.getMessage(toType, toTypeId, chatCreateTime, currentPage, this.pageSize);
-        };
-        this.timeFun = function () {
-            var height2 = $(window).height();
-            if (height2 / 2 - 217 - 183 < 0) {
-                return WdatePicker({
-                    onpicking: this.getDate,
-                    dateFmt: 'yyyy-MM-dd',
-                    skin: 'my',
-                    position: {left: 10, top: -8}
-                })
-            } else {
-                return WdatePicker({
-                    onpicking: this.getDate,
-                    dateFmt: 'yyyy-MM-dd',
-                    skin: 'my',
-                    position: {left: 8, top: -205}
-                })
-            }
         };
         this.getDate = function () {
             var html = $dp.cal.getNewDateStr();
