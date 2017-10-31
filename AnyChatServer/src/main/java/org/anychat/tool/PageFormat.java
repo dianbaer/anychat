@@ -1,7 +1,17 @@
 package org.anychat.tool;
 
 public class PageFormat {
-
+	/**
+	 * 分页工具
+	 * 
+	 * @param currentPage
+	 *            当前页
+	 * @param pageSize
+	 *            每页条数
+	 * @param allNum
+	 *            总数量
+	 * @return
+	 */
 	public static PageObj getStartAndEnd(int currentPage, int pageSize, int allNum) {
 		if (pageSize < 1) {
 			pageSize = allNum;

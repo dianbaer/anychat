@@ -40,7 +40,11 @@ public class MessageServiceMongodb implements IWSListener {
 		return map;
 	}
 
-	// 随机线程
+	/**
+	 * 随机线程
+	 * 
+	 * @param wsPacket
+	 */
 	public void sendMessageHandle(WsPacket wsPacket) {
 		Session session = (Session) wsPacket.session;
 		OnlineUserMongodb onlineUser = OnlineUserManagerMongodb.getOnlineUserBySessionId(session.getId());
@@ -67,7 +71,6 @@ public class MessageServiceMongodb implements IWSListener {
 			builder.setMessage(ChatActionMongodb.getChatMessageDataBuilder(chat));
 			WsPacket sendWsPacket = new WsPacket(WsOpCodeChat.TO_USER_MESSAGE_S, builder.build());
 			onlineUser.send(sendWsPacket);
-
 		} else if (chat.getToType() == ChatConfig.TO_TYPE_GROUP) {
 			List<ChatGroupUser> chatGroupUserList = ChatGroupUserAction.getChatGroupUserList(null, chat.getToTypeId());
 			if (chatGroupUserList != null && chatGroupUserList.size() != 0) {
@@ -82,7 +85,11 @@ public class MessageServiceMongodb implements IWSListener {
 		}
 	}
 
-	// 随机线程
+	/**
+	 * 随机线程
+	 * 
+	 * @param wsPacket
+	 */
 	public void userMessageReceiveHandle(WsPacket wsPacket) {
 		Session session = (Session) wsPacket.session;
 		OnlineUserMongodb onlineUser = OnlineUserManagerMongodb.getOnlineUserBySessionId(session.getId());
@@ -94,7 +101,11 @@ public class MessageServiceMongodb implements IWSListener {
 		boolean result = ChatActionMongodb.updateChat(builder1.getMessageIdList(), builder1.getUserId(), onlineUser.getUserId());
 	}
 
-	// 随机线程
+	/**
+	 * 随机线程
+	 * 
+	 * @param wsPacket
+	 */
 	public void groupMessageReceiveHandle(WsPacket wsPacket) {
 		Session session = (Session) wsPacket.session;
 		OnlineUserMongodb onlineUser = OnlineUserManagerMongodb.getOnlineUserBySessionId(session.getId());
@@ -116,6 +127,11 @@ public class MessageServiceMongodb implements IWSListener {
 		// 修改成功
 	}
 
+	/**
+	 * 随机线程
+	 * 
+	 * @param wsPacket
+	 */
 	public void getChatListHandle(WsPacket wsPacket) {
 		Session session = (Session) wsPacket.session;
 		OnlineUserMongodb onlineUser = OnlineUserManagerMongodb.getOnlineUserBySessionId(session.getId());

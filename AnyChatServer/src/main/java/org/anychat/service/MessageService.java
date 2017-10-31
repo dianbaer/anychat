@@ -39,7 +39,11 @@ public class MessageService implements IWSListener {
 		return map;
 	}
 
-	// 随机线程
+	/**
+	 * 随机线程
+	 * 
+	 * @param wsPacket
+	 */
 	public void sendMessageHandle(WsPacket wsPacket) {
 		Session session = (Session) wsPacket.session;
 		OnlineUser onlineUser = OnlineUserManager.getOnlineUserBySessionId(session.getId());
@@ -66,7 +70,6 @@ public class MessageService implements IWSListener {
 			builder.setMessage(ChatAction.getChatMessageDataBuilder(chat));
 			WsPacket sendWsPacket = new WsPacket(WsOpCodeChat.TO_USER_MESSAGE_S, builder.build());
 			onlineUser.send(sendWsPacket);
-
 		} else if (chat.getToType() == ChatConfig.TO_TYPE_GROUP) {
 			List<ChatGroupUser> chatGroupUserList = ChatGroupUserAction.getChatGroupUserList(null, chat.getToTypeId());
 			if (chatGroupUserList != null && chatGroupUserList.size() != 0) {
@@ -81,7 +84,11 @@ public class MessageService implements IWSListener {
 		}
 	}
 
-	// 随机线程
+	/**
+	 * 随机线程
+	 * 
+	 * @param wsPacket
+	 */
 	public void userMessageReceiveHandle(WsPacket wsPacket) {
 		Session session = (Session) wsPacket.session;
 		OnlineUser onlineUser = OnlineUserManager.getOnlineUserBySessionId(session.getId());
@@ -93,7 +100,11 @@ public class MessageService implements IWSListener {
 		boolean result = ChatAction.updateChat(builder1.getMessageIdList());
 	}
 
-	// 随机线程
+	/**
+	 * 随机线程
+	 * 
+	 * @param wsPacket
+	 */
 	public void groupMessageReceiveHandle(WsPacket wsPacket) {
 		Session session = (Session) wsPacket.session;
 		OnlineUser onlineUser = OnlineUserManager.getOnlineUserBySessionId(session.getId());
@@ -113,6 +124,11 @@ public class MessageService implements IWSListener {
 		// 修改成功
 	}
 
+	/**
+	 * 随机线程
+	 * 
+	 * @param wsPacket
+	 */
 	public void getChatListHandle(WsPacket wsPacket) {
 		Session session = (Session) wsPacket.session;
 		OnlineUser onlineUser = OnlineUserManager.getOnlineUserBySessionId(session.getId());

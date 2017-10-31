@@ -48,7 +48,11 @@ public class LoginChatService implements IWSListener, IMsgListener {
 		return map;
 	}
 
-	// 线程1的业务
+	/**
+	 * 线程1的业务
+	 * 
+	 * @param wsPacket
+	 */
 	public void LoginChatServerHandle(WsPacket wsPacket) {
 		LoginChatServerC builder1 = (LoginChatServerC) wsPacket.getData();
 		String token = builder1.getToken();
@@ -62,7 +66,6 @@ public class LoginChatService implements IWSListener, IMsgListener {
 		if (onlineUser != null) {
 			// 该用户在线，需要踢这个用户下线,才可以上线
 			onlineUser.setKick(true);
-
 			// 告诉客户端可重新走登陆请求
 			AgainConnectS.Builder againBuilder = AgainConnectS.newBuilder();
 			againBuilder.setWsOpCode(WsOpCodeChat.AGAIN_CONNECT_S);
@@ -74,7 +77,6 @@ public class LoginChatService implements IWSListener, IMsgListener {
 			}
 			return;
 		}
-
 		// 获取好友列表
 		List<UserData> friendList = null;
 		// 聊天组列表
@@ -202,7 +204,11 @@ public class LoginChatService implements IWSListener, IMsgListener {
 		AsyncThreadManager.addCycle(newOnlineUser, threadPriority[0], threadPriority[1]);
 	}
 
-	// 线程1的业务
+	/**
+	 * 线程1的业务
+	 * 
+	 * @param msgPacket
+	 */
 	public void userOfflineHandle(MsgPacket msgPacket) {
 		OnlineUser onlineUser = (OnlineUser) msgPacket.getOtherData();
 		List<UserData> friendList = null;
@@ -232,7 +238,11 @@ public class LoginChatService implements IWSListener, IMsgListener {
 		onlineUser.clear();
 	}
 
-	// 线程1的业务
+	/**
+	 * 线程1的业务
+	 * 
+	 * @param msgPacket
+	 */
 	public void webSocketCientDisConnectHandle(MsgPacket msgPacket) {
 		Session session = (Session) msgPacket.getOtherData();
 		OnlineUser onlineUser = OnlineUserManager.getOnlineUserBySessionId(session.getId());
@@ -241,7 +251,5 @@ public class LoginChatService implements IWSListener, IMsgListener {
 		} else {
 			WSManager.log.info("该链接未登陆，不用走下线流程或者是主动下线");
 		}
-
 	}
-
 }
