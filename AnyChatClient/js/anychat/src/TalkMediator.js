@@ -117,16 +117,16 @@
             }
         };
         this.onReturnChat = function () {
-            $T.talkMediator.nowModule = 1;
+            talkMediator.nowModule = 1;
             $(this).parents(".windowR_P.left2_P").hide().prev().show();
             //下拉滚动条
             $('.talkCon_P').mCustomScrollbar('scrollTo', 'bottom')
-        }
+        };
         //好友上线的操作
         this.userOnline = function (body) {
             var userObj = this.userMap[body.chatUser.userId];
             //说明在好友列表里
-            if (userObj != null) {
+            if (userObj !== null) {
                 userObj.user = body.chatUser;
                 userObj.onLine();
                 this.onlineNum++;
@@ -136,13 +136,13 @@
                 var displayNode;
                 for (var i = 0; i < childNodes.length; i++) {
                     var node = childNodes[i];
-                    if (node.id != null) {
+                    if (node.id !== null) {
                         displayNode = node;
                         break;
                     }
                 }
-                if (displayNode != null) {
-                    if (displayNode.id != userObj.user.userId) {
+                if (displayNode !== null) {
+                    if (displayNode.id !== userObj.user.userId) {
                         $("#" + displayNode.id).before($("#" + userObj.user.userId));
                     }
                 }
@@ -153,17 +153,17 @@
                 this.userMap[body.chatUser.userId] = userObj;
                 $("#talkUserList").prepend(userObj.view);
                 userObj.addOptListener();
-                userObj.addEventListener($T.chatObjEventType.OPEN_CHAT_OBJ, this.openChatObjHandle, this);
+                userObj.addEventListener(chatObjEventType.OPEN_CHAT_OBJ, this.openChatObjHandle, this);
                 this.onlineNum++;
                 this.userNum++;
                 $("#currentOnline").text(this.onlineNum);
                 $("#allUser").text(this.userNum);
             }
-        }
+        };
         //好友下线
         this.userOffline = function (body) {
             var userObj = this.userMap[body.userId];
-            if (userObj != null) {
+            if (userObj !== null) {
                 userObj.user.isOnline = false;
                 userObj.offLine();
                 this.onlineNum--;
@@ -174,13 +174,13 @@
                 var displayNode;
                 for (var i = childNodes.length - 1; i >= 0; i--) {
                     var node = childNodes[i];
-                    if (node.id != null) {
+                    if (node.id !== null) {
                         displayNode = node;
                         break;
                     }
                 }
-                if (displayNode != null) {
-                    if (displayNode.id != userObj.user.userId) {
+                if (displayNode !== null) {
+                    if (displayNode.id !== userObj.user.userId) {
                         $("#" + displayNode.id).after($("#" + userObj.user.userId));
                     }
                 }
@@ -188,14 +188,14 @@
                 //这种情况不可能发生
             }
 
-        }
+        };
         //登陆成功
         this.LoginChatServerSuccess = function (body) {
             //设置自己的信息
             this.own = body.chatUser;
             var firstGroup;
             //初始化聊天组
-            if (body.chatGroupList != null) {
+            if (body.chatGroupList !== null) {
                 for (var i = 0; i < body.chatGroupList.length; i++) {
                     var userGroup = body.chatGroupList[i];
                     var groupObj = new GroupObj();
@@ -203,15 +203,15 @@
                     this.groupMap[userGroup.chatGroupId] = groupObj;
                     $("#talkList").prepend(groupObj.view);
                     groupObj.addOptListener();
-                    groupObj.addEventListener($T.chatObjEventType.OPEN_CHAT_OBJ, this.openChatObjHandle, this);
+                    groupObj.addEventListener(chatObjEventType.OPEN_CHAT_OBJ, this.openChatObjHandle, this);
                     //默认打开第一个聊天组
-                    if (i == 0) {
+                    if (i === 0) {
                         firstGroup = groupObj;
                     }
                 }
             }
             //初始化好友列表
-            if (body.chatUserList != null) {
+            if (body.chatUserList !== null) {
                 for (var i = 0; i < body.chatUserList.length; i++) {
                     var user = body.chatUserList[i];
                     var userObj = new UserObj();
@@ -224,7 +224,7 @@
                     }
 
                     userObj.addOptListener();
-                    userObj.addEventListener($T.chatObjEventType.OPEN_CHAT_OBJ, this.openChatObjHandle, this);
+                    userObj.addEventListener(chatObjEventType.OPEN_CHAT_OBJ, this.openChatObjHandle, this);
                     if (user.isOnline) {
                         this.onlineNum++;
                     }
@@ -239,7 +239,7 @@
             this.nowToObj.view.addClass("on_P");
             $("#toTypeName").text(this.nowToObj.group.chatGroupName);
             $("#toTypeName2").text(this.nowToObj.group.chatGroupName);
-        }
+        };
         //切换聊天对象
         this.openChatObjHandle = function (event) {
             //如果没变化，返回
