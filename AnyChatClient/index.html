@@ -2,74 +2,84 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>嵌入聊天--登录</title>
-    <script src="js/lib/jquery.min.js?v=v1.0.0" type="text/javascript"></script>
-    <script src="js/lib/jquery.cookie.js?v=v1.0.0" type="text/javascript"></script>
-    <script src="js/lib/Math.uuid.js?v=v1.0.0" type="text/javascript"></script>
-    <script src="js/lib/threecss-c.js?v=v1.0.0" type="text/javascript"></script>
+    <title>嵌入聊天</title>
+    <script src="js/lib/juggle-all.js" type="text/javascript"></script>
+    <script src="js/lib/jquery.min.js" type="text/javascript"></script>
 </head>
 <script type="text/javascript">
-    //加载内部类
-    $T.version.loadScript("js/app/NotificationExt.js");
-    $T.version.loadScript("js/app/Url.js");
-    $T.version.loadScript("js/app/CookieParam.js");
-    $T.version.loadScript("js/app/CookieName.js");
-    $T.version.loadScript("js/app/data/http/TokenProxy.js");
-    $T.version.loadScript("js/app/IndexMediator.js");
-
-    $T.version.loadCss("css/base1.css");
-    $T.version.loadCss("css/login_w.css");
-
-
     window.onload = function () {
-        //初始化内部类
-        $T.version.init();
-        //初始化过滤器
-        var testFilter = new TestFilter();
-        $T.httpResultFilter.addFilter(testFilter);
-        //初始化控制器
-        $T.indexMediator.init();
-        $T.register.register($T.indexMediator);
+
     }
 </script>
 <body>
-<!--header start-->
-<div class="logHeader">
-    <div class="wrapper">
-        <a href="javascript:;" style="color:#ffffff;font-size: 24px">
-            嵌入聊天
-        </a>
-    </div>
-</div>
-<!--header over-->
-<!--main start-->
-<div class="pr">
-    <div class="loginBox">
-        <h3 class="logTitle">用户登录</h3>
-        <div class="pr pt30">
-            <p class="error hide">账号密码不匹配，请重新输入</p><!-- 账号或密码错误时,去掉hide样式 -->
-            <div class="inputBox">
-                <input type="text" id="userName"/>
-                <p>请输入您的账号</p>
-                <a class="clearBtn" href="javascript:;"></a>
-            </div>
-            <div class="inputBox">
-                <input type="password" id="userPassword"/>
-                <p>请输入您的密码</p>
-                <a class="clearBtn" href="javascript:;"></a>
-            </div>
-            <a class="loginBtn" href="javascript:;" id="loginUCenter">登 录</a>
-        </div>
-    </div>
-</div>
+<div class="window_P">
+    <dl class="windowL_P fl">
+        <dt>
+            <span>通讯录</span>
+        </dt>
+        <dd>
+            <ul id="talkList">
 
-<!--main over-->
-<!--footer start-->
-<div class="logFooter">
-    <div class="wrapper">
-        <p></p>
-    </div>
+                <li class="group">
+                    <p>我的同事<span class="cur_P" id="currentOnline">0</span>/ <span class="all_P" id="allUser">0</span>
+                    </p>
+                    <ul id="talkUserList">
+
+                    </ul>
+                </li>
+            </ul>
+        </dd>
+    </dl>
+    <dl class="windowR_P fl ">
+        <dt>
+            <span class="title_P" id="toTypeName">无</span>
+            <i class="closeBtn_P" id="talk_close"></i>
+        </dt>
+        <dd class="talkCon_P" id="chatList">
+
+        </dd>
+        <dd class="funList_PJY">
+            <div class="pr">
+                <a href="javascript:;"></a>
+                <a href="javascript:;" class="history_P"></a>
+            </div>
+        </dd>
+        <dd class="textWin_P">
+            <div>
+                <textarea class="mytext_P" id="sendChatContent"></textarea>
+            </div>
+        </dd>
+        <dd class="btnList_P">
+            <a href="javascript:;" class="send_P" id="sendChat">发送</a>
+        </dd>
+
+    </dl>
+    <dl class="windowR_P left2_P fl">
+        <dt>
+            <span class="title2_P"> <i class="return_P" id="returnChat"></i>消息记录（<span id="toTypeName2"></span>）</span>
+            <i class="closeBtn_P"></i>
+        </dt>
+        <dd class="hisList_P">
+            <div id="histortChat">
+
+            </div>
+        </dd>
+        <dd class="hisFoot_P">
+            <div class="pageList_P">
+                <a href="javascript:;" class="first_P" id="firstPage"></a>
+                <a href="javascript:;" class="prev_P" id="prePage"></a>
+                <a href="javascript:;" class="next_P" id="nextPage"></a>
+                <a href="javascript:;" class="last_P" id="lastPage"></a>
+            </div>
+            <div class="timeBox_P">
+                <a href="javascript:;" id="historyTime"></a>
+                <input type="text" class="hide" id="d1" onClick="$T.talkMediator.timeFun()"/>
+            </div>
+            <div class="clear"></div>
+        </dd>
+
+    </dl>
+    <div class="clear"></div>
 </div>
-<!--footer over-->
 </body>
 </html>

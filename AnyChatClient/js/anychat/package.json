@@ -1,0 +1,23 @@
+{
+  "name": "anyupload",
+  "version": "1.0.0",
+  "description": "",
+  "main": "anyupload.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dianbaer/anyupload"
+  },
+  "keywords": [
+    "anyupload"
+  ],
+  "author": "dianbaer",
+  "license": "MIT",
+  "devDependencies": {
+    "grunt": "^1.0.1",
+    "grunt-contrib-concat": "^1.0.1",
+    "grunt-contrib-uglify": "^3.0.1"
+  }
+}
