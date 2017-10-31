@@ -314,8 +314,8 @@
         this.onUserMessage = function (body) {
             var showHaveMsg = true;
             //如果是当前聊天对象则直接显示
-            if (this.nowToObj.user != null) {
-                if (this.nowToObj.user.userId == body.userId) {
+            if (this.nowToObj.user !== null) {
+                if (this.nowToObj.user.userId === body.userId) {
                     this.openChat(body.message);
                     showHaveMsg = false;
                 }
@@ -326,22 +326,22 @@
             }
             //加入历史聊天列表
             this.userMap[body.userId].chatList = this.userMap[body.userId].chatList.concat(body.message);
-        }
+        };
         this.onToUserMessage = function (body) {
             //如果是当前聊天对象则显示
-            if (this.nowToObj.user != null) {
-                if (this.nowToObj.user.userId == body.toUserId) {
+            if (this.nowToObj.user !== null) {
+                if (this.nowToObj.user.userId === body.toUserId) {
                     this.openChat([body.message]);
                 }
             }
             //加入历史聊天列表
             this.userMap[body.toUserId].chatList = this.userMap[body.toUserId].chatList.concat([body.message]);
-        }
+        };
         this.onGroupMessage = function (body) {
             //如果是当前聊天对象则显示
             var showHaveMsg = true;
-            if (this.nowToObj.group != null) {
-                if (this.nowToObj.group.chatGroupId == body.chatGroupId) {
+            if (this.nowToObj.group !== null) {
+                if (this.nowToObj.group.chatGroupId === body.chatGroupId) {
                     this.openChat(body.message);
                     showHaveMsg = false;
                 }
@@ -352,35 +352,25 @@
             }
             //加入历史聊天列表
             this.groupMap[body.chatGroupId].chatList = this.groupMap[body.chatGroupId].chatList.concat(body.message);
-        }
+        };
         //发送聊天
         this.onSendChat = function () {
             var chatContent = $(this).parents(".windowR_P").find(".ke-edit-iframe").contents().find(".ke-content").html();
-            //chatContent = chatContent.replace(/&NBSP;/g,"");
-            //chatContent = chatContent.replace(/&nbsp;/g, "");
-            //火狐浏览器会在末尾添加一个<br>
-            chatContent = chatContent.replace(/<br>/g, "");
-            chatContent = $.trim(chatContent);
-            // //将聊天记录中的图片替换成表情符号
-            chatContent = $T.expressionConvert.replace_Image_to_symbol(chatContent);
-            if (chatContent == null || chatContent == "") {
+            if (chatContent === null || chatContent === "") {
                 return;
             }
             var toType;
             var toTypeId;
-            if ($T.talkMediator.nowToObj.user != null) {
+            if (this.nowToObj.user !== null) {
                 toType = 1;
-                toTypeId = $T.talkMediator.nowToObj.user.userId;
+                toTypeId = this.nowToObj.user.userId;
             } else {
                 toType = 2;
-                toTypeId = $T.talkMediator.nowToObj.group.chatGroupId;
+                toTypeId = this.nowToObj.group.chatGroupId;
             }
             $(this).parents(".windowR_P").find(".ke-edit-iframe").contents().find(".ke-content").html("");
-            $T.loginChatProxy.sendMessage(chatContent, toType, toTypeId);
-        }
-        this.advanceTime = function (passedTime) {
-
-        }
+            loginChatProxy.sendMessage(chatContent, toType, toTypeId);
+        };
         this.onClickHistory = function () {
             $(".windowR_P.left2_P").show().prev().hide();
             $T.talkMediator.getHistoryChatList($T.talkMediator.maxPage);
