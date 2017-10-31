@@ -373,9 +373,9 @@
         };
         this.onClickHistory = function () {
             $(".windowR_P.left2_P").show().prev().hide();
-            $T.talkMediator.getHistoryChatList($T.talkMediator.maxPage);
-            $T.talkMediator.nowModule = 2;
-        }
+            this.getHistoryChatList(this.maxPage);
+            this.nowModule = 2;
+        };
         this.setNowTime = function () {
             var date = new Date();
             var year = date.getFullYear();
@@ -394,19 +394,19 @@
                 dateStr = date;
             }
             $("#historyTime").text(year + "-" + monthStr + "-" + dateStr);
-        }
+        };
         this.createHistoryChat = function (chat) {
             var view = document.createElement("dl");
             var user;
-            if (chat.userId == this.own.userId) {
+            if (chat.userId === this.own.userId) {
                 user = this.own;
             } else {
                 user = this.userMap[chat.userId].user;
             }
             view.innerHTML = '<dt class="org_P">' + user.userRealName + ' ' + chat.chatCreateTime + '</dt>' +
-                '<dd>' + $T.expressionConvert.replace_symbol_to_image(chat.chatContent) + '</dd>';
+                '<dd>' + chat.chatContent + '</dd>';
             return $(view);
-        }
+        };
         this.getChatListSuccess = function (body) {
             this.currentPage = body.currentPage;
             this.totalPage = body.totalPage;
@@ -414,21 +414,21 @@
             $("#prePage").removeClass("disabled_P");
             $("#nextPage").removeClass("disabled_P");
             $("#lastPage").removeClass("disabled_P");
-            if (this.currentPage == this.totalPage || this.totalPage == null) {
+            if (this.currentPage === this.totalPage || this.totalPage === null) {
                 $("#nextPage").addClass("disabled_P");
                 $("#lastPage").addClass("disabled_P");
             }
-            if (this.currentPage == 1) {
+            if (this.currentPage === 1) {
                 $("#firstPage").addClass("disabled_P");
                 $("#prePage").addClass("disabled_P");
             }
             $("#histortChat").text("");
-            if (body.message != null && body.message.length != 0) {
+            if (body.message !== null && body.message.length !== 0) {
                 for (var i = 0; i < body.message.length; i++) {
                     var msg = body.message[i];
                     var view = this.createHistoryChat(msg);
                     $("#histortChat").append(view);
-                    if (i == 0) {
+                    if (i === 0) {
                         var chatCreateTime = msg.chatCreateTime;
                         var array = chatCreateTime.split(" ");
                         $("#historyTime").text(array[0]);
@@ -436,34 +436,34 @@
 
                 }
             } else {
-                $T.talkMediator.setNowTime();
+                this.setNowTime();
             }
-        }
+        };
         this.onFirstPage = function () {
-            $T.talkMediator.getHistoryChatList(1);
-        }
+            this.getHistoryChatList(1);
+        };
         this.onPrePage = function () {
-            $T.talkMediator.getHistoryChatList($T.talkMediator.currentPage - 1);
-        }
+            this.getHistoryChatList(this.currentPage - 1);
+        };
         this.onNextPage = function () {
-            $T.talkMediator.getHistoryChatList($T.talkMediator.currentPage + 1);
-        }
+            this.getHistoryChatList(this.currentPage + 1);
+        };
         this.onLastPage = function () {
-            $T.talkMediator.getHistoryChatList($T.talkMediator.maxPage);
+            this.getHistoryChatList(this.maxPage);
 
-        }
+        };
         this.getHistoryChatList = function (currentPage, chatCreateTime) {
             var toType;
             var toTypeId;
-            if ($T.talkMediator.nowToObj.user != null) {
+            if (this.nowToObj.user !== null) {
                 toType = 1;
-                toTypeId = $T.talkMediator.nowToObj.user.userId;
+                toTypeId = this.nowToObj.user.userId;
             } else {
                 toType = 2;
-                toTypeId = $T.talkMediator.nowToObj.group.chatGroupId;
+                toTypeId = this.nowToObj.group.chatGroupId;
             }
-            $T.loginChatProxy.getMessage(toType, toTypeId, chatCreateTime, currentPage, $T.talkMediator.pageSize);
-        }
+            loginChatProxy.getMessage(toType, toTypeId, chatCreateTime, currentPage, this.pageSize);
+        };
         this.timeFun = function () {
             var height2 = $(window).height();
             if (height2 / 2 - 217 - 183 < 0) {
@@ -481,11 +481,11 @@
                     position: {left: 8, top: -205}
                 })
             }
-        }
+        };
         this.getDate = function () {
             var html = $dp.cal.getNewDateStr();
-            $T.talkMediator.getHistoryChatList(null, html);
-        }
+            this.getHistoryChatList(null, html);
+        };
         Mediator.apply(this);
     };
     window.anychat.TalkMediator = TalkMediator;
