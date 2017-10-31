@@ -2,7 +2,7 @@
 
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
-anychat是一个基于websocket聊天插件，支持对接任何身份系统、组织架构，嵌入方只需提供三个API即可进行实时通讯，支持个人与个人聊天、群聊天等。
+anychat是一个极其纯净的websocket聊天插件，支持对接任何身份系统、组织架构，嵌入方只需提供三个API即可进行实时通讯，支持个人与个人聊天、群聊天等。
 
 优势：
 
@@ -14,7 +14,7 @@ anychat是一个基于websocket聊天插件，支持对接任何身份系统、�
 	5、支持将聊天记录存入MongoDB，有效的减少服务器查询聊天记录的数据库负荷。
 
 
-### AnyChatServer（目录结构）
+### AnyChatServer（目录结构 3276行）
 
 	|--src.main.java（服务器代码）
 		|--AnyChatServer.properties---------------配置文件（需要修改）
