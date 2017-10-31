@@ -1,14 +1,14 @@
 (function (window) {
     if (!window.anychat) window.anychat = {};
-    var Mediator = window.juggle.Mediator;
-    var webSocketEventType = window.juggle.webSocketEventType;
-    var WebSocketClient = window.juggle.WebSocketClient;
     var chatObjEventType = window.anychat.chatObjEventType;
-    var notificationExt = window.anychat.notificationExt;
     var getUrlParam = window.anychat.getUrlParam;
-    var UserObj = window.anychat.UserObj;
-    var GroupObj = window.anychat.GroupObj;
+    var notificationExt = window.anychat.notificationExt;
     var loginChatProxy = window.anychat.loginChatProxy;
+    var GroupObj = window.anychat.GroupObj;
+    var UserObj = window.anychat.UserObj;
+    var Mediator = window.juggle.Mediator;
+    var WebSocketClient = window.juggle.WebSocketClient;
+    var webSocketEventType = window.juggle.webSocketEventType;
     var TalkMediator = function () {
         //webscoket对象
         this.webSocketClient = null;
@@ -55,6 +55,7 @@
         //链接聊天服务器
         this.loginChatServer = function () {
             this.logoutChatServer();
+
             this.webSocketClient = new WebSocketClient(loginChatProxy.url);
             this.webSocketClient.addEventListener(webSocketEventType.CONNECTED, this.onConnected, this);
             this.webSocketClient.addEventListener(webSocketEventType.CLOSE, this.onClose, this);
@@ -70,51 +71,51 @@
         };
         //链接成功后发送登陆请求
         this.onConnected = function (event) {
-            $T.loginChatProxy.loginChat($T.cookieParam.getCookieParam($T.cookieName.TOKEN));
-        }
+            loginChatProxy.loginChat(this.token);
+        };
         // 关心消息数组
         this.listNotificationInterests = [
-            $T.notificationExt.LOGIN_CHAT_SERVER_SUCCESS,
-            $T.notificationExt.CHAT_USER_ONLINE,
-            $T.notificationExt.CHAT_USER_OFFLINE,
-            $T.notificationExt.CHAT_USER_MESSAGE,
-            $T.notificationExt.CHAT_GROUP_MESSAGE,
-            $T.notificationExt.CHAT_KICK,
-            $T.notificationExt.AGAIN_CONNECT,
-            $T.notificationExt.GET_CHAT_LIST,
-            $T.notificationExt.CHAT_TO_USER_MESSAGE];
+            notificationExt.LOGIN_CHAT_SERVER_SUCCESS,
+            notificationExt.CHAT_USER_ONLINE,
+            notificationExt.CHAT_USER_OFFLINE,
+            notificationExt.CHAT_USER_MESSAGE,
+            notificationExt.CHAT_GROUP_MESSAGE,
+            notificationExt.CHAT_KICK,
+            notificationExt.AGAIN_CONNECT,
+            notificationExt.GET_CHAT_LIST,
+            notificationExt.CHAT_TO_USER_MESSAGE];
         // 关心的消息处理
         this.handleNotification = function (data) {
-            switch (data[0].name) {
-                case $T.notificationExt.LOGIN_CHAT_SERVER_SUCCESS:
-                    this.LoginChatServerSuccess(data[0].body);
+            switch (data.name) {
+                case notificationExt.LOGIN_CHAT_SERVER_SUCCESS:
+                    this.LoginChatServerSuccess(data.body);
                     break;
-                case $T.notificationExt.CHAT_USER_ONLINE:
-                    this.userOnline(data[0].body);
+                case notificationExt.CHAT_USER_ONLINE:
+                    this.userOnline(data.body);
                     break;
-                case $T.notificationExt.CHAT_USER_OFFLINE:
-                    this.userOffline(data[0].body);
+                case notificationExt.CHAT_USER_OFFLINE:
+                    this.userOffline(data.body);
                     break;
-                case $T.notificationExt.CHAT_USER_MESSAGE:
-                    this.onUserMessage(data[0].body);
+                case notificationExt.CHAT_USER_MESSAGE:
+                    this.onUserMessage(data.body);
                     break;
-                case $T.notificationExt.CHAT_GROUP_MESSAGE:
-                    this.onGroupMessage(data[0].body);
+                case notificationExt.CHAT_GROUP_MESSAGE:
+                    this.onGroupMessage(data.body);
                     break;
-                case $T.notificationExt.CHAT_KICK:
+                case notificationExt.CHAT_KICK:
                     alert("你即将被踢下线");
                     break;
-                case $T.notificationExt.AGAIN_CONNECT:
-                    $T.loginChatProxy.loginChat($T.cookieParam.getCookieParam($T.cookieName.TOKEN));
+                case notificationExt.AGAIN_CONNECT:
+                    loginChatProxy.loginChat(this.token);
                     break;
-                case $T.notificationExt.GET_CHAT_LIST:
-                    this.getChatListSuccess(data[0].body);
+                case notificationExt.GET_CHAT_LIST:
+                    this.getChatListSuccess(data.body);
                     break;
-                case $T.notificationExt.CHAT_TO_USER_MESSAGE:
-                    this.onToUserMessage(data[0].body);
+                case notificationExt.CHAT_TO_USER_MESSAGE:
+                    this.onToUserMessage(data.body);
                     break;
             }
-        }
+        };
         this.onReturnChat = function () {
             $T.talkMediator.nowModule = 1;
             $(this).parents(".windowR_P.left2_P").hide().prev().show();
