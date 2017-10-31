@@ -17,36 +17,70 @@ import org.anychat.protobuf.ws.LoginChatProto.UserMessageS;
 import org.grain.threadwebsocket.ThreadWSManager;
 
 public class WsOpCodeChat {
-	// 登录请求
+	/**
+	 * 登录请求
+	 */
 	public static String LOGIN_CHAT_SERVER_C = "1";
-	// 登录成功后返回数据
+	/**
+	 * 登录成功后返回数据
+	 */
 	public static String LOGIN_CHAT_SERVER_S = "2";
-	// 用户上线
+	/**
+	 * 用户上线
+	 */
 	public static String USER_ONLINE_S = "3";
-	// 用户下线
+	/**
+	 * 用户下线
+	 */
 	public static String USER_OFFLINE_S = "4";
-	// 发送消息给个人或组织
+	/**
+	 * 发送消息给个人或组织
+	 */
 	public static String SEND_MESSAGE_C = "5";
-	// 接到的个人消息
+	/**
+	 * 接到的个人消息
+	 */
 	public static String USER_MESSAGE_S = "6";
-	// 接到的组织消息
+	/**
+	 * 接到的组织消息
+	 */
 	public static String GROUP_MESSAGE_S = "7";
-	// 用户收到个人消息的回复
+	/**
+	 * 用户收到个人消息的回复
+	 */
 	public static String USER_MESSAGE_RECEIVE_C = "8";
-	// 用户收到组织消息的回复
+	/**
+	 * 用户收到组织消息的回复
+	 */
 	public static String GROUP_MESSAGE_RECEIVE_C = "9";
-	// 用户被踢下线
+	/**
+	 * 用户被踢下线
+	 */
 	public static String USER_KICK_S = "10";
+	/**
+	 * 通知用户重连，下线需要过程，所以用户需要尝试重连
+	 */
 	public static String AGAIN_CONNECT_S = "11";
-
+	/**
+	 * 获取聊天记录
+	 */
 	public static String GET_CHAT_LIST_C = "12";
+	/**
+	 * 获取聊天记录返回
+	 */
 	public static String GET_CHAT_LIST_S = "13";
-
-	// 接到的自己发送给别人的消息
+	/**
+	 * 接到的自己发送给别人的消息
+	 */
 	public static String TO_USER_MESSAGE_S = "14";
 
+	/**
+	 * 初始化解析映射及消息包线程归属
+	 */
 	public static void init() {
+		// 归属线程1，优先级1
 		ThreadWSManager.addThreadMapping(LOGIN_CHAT_SERVER_C, LoginChatServerC.class, new int[] { 1, 1 });
+		// S后缀的无所谓,C后缀的都归属随机线程
 		ThreadWSManager.addThreadMapping(LOGIN_CHAT_SERVER_S, LoginChatServerS.class, null);
 		ThreadWSManager.addThreadMapping(USER_ONLINE_S, ChatUserOnlineS.class, null);
 		ThreadWSManager.addThreadMapping(USER_OFFLINE_S, ChatUserOfflineS.class, null);
