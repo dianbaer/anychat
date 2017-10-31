@@ -290,7 +290,7 @@
             }
             //设置当前聊天对象，清空聊天记录
             this.nowToObj = event.mTarget;
-            $("#chatList #mCSB_2_container")[0].innerHTML = "";
+            $("#chatList")[0].innerHTML = "";
             //如果是用户
             if (event.mTarget.user !== null && event.mTarget.user !== undefined) {
                 $("#toTypeName").text(this.nowToObj.user.userRealName);
@@ -322,7 +322,7 @@
                 } else {
                     view = this.createOtherUserChat(chat);
                 }
-                $("#chatList #mCSB_2_container").append(view);
+                $("#chatList").append(view);
             }
             //下拉滚动条
             //$('.talkCon_P').mCustomScrollbar('scrollTo', 'bottom')
@@ -397,7 +397,7 @@
         };
         //发送聊天
         this.onSendChat = function (event) {
-            var chatContent = $(event.target).parents(".windowR_P").find(".ke-edit-iframe").contents().find(".ke-content").html();
+            var chatContent = $("#sendChatContent").val();
             if (chatContent === null || chatContent === "" || chatContent === undefined) {
                 return;
             }
@@ -410,7 +410,7 @@
                 toType = 2;
                 toTypeId = this.nowToObj.group.chatGroupId;
             }
-            $(event.target).parents(".windowR_P").find(".ke-edit-iframe").contents().find(".ke-content").html("");
+            //$("#sendChatContent")[0].val("");
             loginChatProxy.sendMessage(chatContent, toType, toTypeId);
         };
         this.onClickHistory = function () {
