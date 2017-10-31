@@ -243,14 +243,14 @@
         //切换聊天对象
         this.openChatObjHandle = function (event) {
             //如果没变化，返回
-            if (event.mTarget == this.nowToObj) {
+            if (event.mTarget === this.nowToObj) {
                 return;
             }
             //设置当前聊天对象，清空聊天记录
             this.nowToObj = event.mTarget;
             $("#chatList #mCSB_2_container")[0].innerHTML = "";
             //如果是用户
-            if (event.mTarget.user != null) {
+            if (event.mTarget.user !== null) {
                 $("#toTypeName").text(this.nowToObj.user.userRealName);
                 this.openChat(event.mTarget.chatList);
                 //修改聊天记录的
@@ -265,17 +265,17 @@
             //设置这个对象没有未读记录
             event.mTarget.view.removeClass("online_P");
             //如果聊天记录打开，需要切换聊天记录的内容
-            if (this.nowModule == 2) {
-                $T.talkMediator.getHistoryChatList($T.talkMediator.maxPage);
+            if (this.nowModule === 2) {
+                this.getHistoryChatList(this.maxPage);
             }
-        }
+        };
         //显示聊天信息
         this.openChat = function (chatList) {
             for (var i = 0; i < chatList.length; i++) {
                 var chat = chatList[i];
                 var view;
                 //如果是自己则聊天内容在右边
-                if (chat.userId == this.own.userId) {
+                if (chat.userId === this.own.userId) {
                     view = this.createOwnChat(chat);
                 } else {
                     view = this.createOtherUserChat(chat);
@@ -284,32 +284,32 @@
             }
             //下拉滚动条
             $('.talkCon_P').mCustomScrollbar('scrollTo', 'bottom')
-        }
+        };
         //他人的聊天显示
         this.createOtherUserChat = function (chat) {
             var view = document.createElement("div");
             var userObj = this.userMap[chat.userId];
             //var chatContent = chat.chatContent;
             view.className = "otherAsk_P";
-            view.innerHTML = '<a href="javascript:;" class="perPic_P"><img src="' + $T.tokenProxy.getUserImg(userObj.user.userId) + '" alt=""/></a>' +
+            view.innerHTML = '<a href="javascript:;" class="perPic_P"><img src="' + userObj.user.userImg + '" alt=""/></a>' +
                 '<dl>' +
                 '<dt>' + userObj.user.userRealName + '</dt>' +
-                '<dd><span>' + $T.expressionConvert.replace_symbol_to_image(chat.chatContent) + '</span></dd>' +
+                '<dd><span>' + chat.chatContent + '</span></dd>' +
                 '</dl>' +
                 '<div class="clear"></div>';
             return $(view);
-        }
+        };
         //自己的聊天显示
         this.createOwnChat = function (chat) {
             var view = document.createElement("div");
             view.className = "myAsk_P";
-            view.innerHTML = '<a href="javascript:;" class="perPic_P"><img src="' + $T.tokenProxy.getUserImg(this.own.userId) + '" alt=""/></a>' +
+            view.innerHTML = '<a href="javascript:;" class="perPic_P"><img src="' + this.own.userImg + '" alt=""/></a>' +
                 '<dl>' +
-                '<dd><span>' + $T.expressionConvert.replace_symbol_to_image(chat.chatContent) + '</span></dd>' +
+                '<dd><span>' + chat.chatContent + '</span></dd>' +
                 '</dl>' +
                 '<div class="clear"></div>';
             return $(view);
-        }
+        };
         //用户发来消息时
         this.onUserMessage = function (body) {
             var showHaveMsg = true;
