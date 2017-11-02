@@ -13,28 +13,41 @@
 </head>
 <script type="text/javascript">
     var adminToken = null;
-    function adminSuccess(event){
-        var data = JSON.parse(event.mData);
-        adminToken = data.tokenId;
+    function adminSuccess(event) {
+        var returnData = JSON.parse(event.mData);
+        adminToken = returnData.tokenId;
 
+        var data = {
+            "hOpCode": 4,
+            "isUserGroupParentIsNull": true,
+            "isRecursion": false,
+            "pageSize": 0
+        };
         var header = [];
-        header["hOpCode"] = "20";
+        header["hOpCode"] = "4";
+        header["token"] = adminToken;
         var httpClient = new juggle.HttpClient();
         httpClient.send(data, "http://localhost:8080/IdentityServer/s", header);
-        httpClient.addEventListener(juggle.httpEventType.SUCCESS, adminSuccess, this);
-        httpClient.addEventListener(juggle.httpEventType.ERROR, adminError, this);
+        httpClient.addEventListener(juggle.httpEventType.SUCCESS, groupSuccess, this);
+        httpClient.addEventListener(juggle.httpEventType.ERROR, groupError, this);
 
     }
-    function adminError(event){
+    function adminError(event) {
+
+    }
+    function groupSuccess(event) {
+
+    }
+    function groupError(event) {
 
     }
     window.onload = function () {
         $("#login").hide();
-        $("#registerbutton").on("click",function(event){
+        $("#registerbutton").on("click", function (event) {
             $("#login").hide();
             $("#register").show();
         });
-        $("#loginbutton").on("click",function(event){
+        $("#loginbutton").on("click", function (event) {
             $("#register").hide();
             $("#login").show();
         });
