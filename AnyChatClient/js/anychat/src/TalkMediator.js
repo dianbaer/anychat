@@ -367,6 +367,8 @@
             var img;
             if (userObj.user.userImg === null || userObj.user.userImg === undefined) {
                 img = "js/anychat/images/default.png";
+            } else {
+                img = userObj.user.userImg;
             }
             view.innerHTML = '<a href="javascript:;" class="perPic_P"><img src="' + img + '" alt=""/></a>' +
                 '<dl>' +
@@ -383,6 +385,8 @@
             var img;
             if (this.own.userImg === null || this.own.userImg === undefined) {
                 img = "js/anychat/images/default.png";
+            } else {
+                img = this.own.userImg;
             }
             view.innerHTML = '<a href="javascript:;" class="perPic_P"><img src="' + img + '" alt=""/></a>' +
                 '<dl>' +

@@ -22,6 +22,8 @@
             var img;
             if (this.user.userImg === null || this.user.userImg === undefined) {
                 img = "js/anychat/images/default.png";
+            } else {
+                img = this.user.userImg;
             }
             view.innerHTML = '<img src="' + img + '" alt=""/><span>' + this.user.userRealName + '</span>';
             this.view = $(view);

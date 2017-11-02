@@ -284,7 +284,13 @@
             if (!this.user.isOnline) {
                 view.className = "downLine_P";
             }
-            view.innerHTML = '<img src="' + this.user.userImg + '" alt=""/><span>' + this.user.userRealName + '</span>';
+            var img;
+            if (this.user.userImg === null || this.user.userImg === undefined) {
+                img = "js/anychat/images/default.png";
+            } else {
+                img = this.user.userImg;
+            }
+            view.innerHTML = '<img src="' + img + '" alt=""/><span>' + this.user.userRealName + '</span>';
             this.view = $(view);
             this.view.attr("id", this.user.userId);
             this.shadow = $("<i class='shadow_P'></i>");
@@ -721,7 +727,13 @@
             var userObj = this.userMap[chat.userId];
             //var chatContent = chat.chatContent;
             view.className = "otherAsk_P";
-            view.innerHTML = '<a href="javascript:;" class="perPic_P"><img src="' + userObj.user.userImg + '" alt=""/></a>' +
+            var img;
+            if (userObj.user.userImg === null || userObj.user.userImg === undefined) {
+                img = "js/anychat/images/default.png";
+            } else {
+                img = userObj.user.userImg;
+            }
+            view.innerHTML = '<a href="javascript:;" class="perPic_P"><img src="' + img + '" alt=""/></a>' +
                 '<dl>' +
                 '<dt>' + userObj.user.userRealName + '</dt>' +
                 '<dd><span>' + chat.chatContent + '</span></dd>' +
@@ -733,7 +745,13 @@
         this.createOwnChat = function (chat) {
             var view = document.createElement("div");
             view.className = "myAsk_P";
-            view.innerHTML = '<a href="javascript:;" class="perPic_P"><img src="' + this.own.userImg + '" alt=""/></a>' +
+            var img;
+            if (this.own.userImg === null || this.own.userImg === undefined) {
+                img = "js/anychat/images/default.png";
+            } else {
+                img = this.own.userImg;
+            }
+            view.innerHTML = '<a href="javascript:;" class="perPic_P"><img src="' + img + '" alt=""/></a>' +
                 '<dl>' +
                 '<dd><span>' + chat.chatContent + '</span></dd>' +
                 '</dl>' +
