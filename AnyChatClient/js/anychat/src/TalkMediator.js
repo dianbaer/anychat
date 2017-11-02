@@ -364,7 +364,11 @@
             var userObj = this.userMap[chat.userId];
             //var chatContent = chat.chatContent;
             view.className = "otherAsk_P";
-            view.innerHTML = '<a href="javascript:;" class="perPic_P"><img src="' + userObj.user.userImg + '" alt=""/></a>' +
+            var img;
+            if (userObj.user.userImg === null || userObj.user.userImg === undefined) {
+                img = "js/anychat/images/default.png";
+            }
+            view.innerHTML = '<a href="javascript:;" class="perPic_P"><img src="' + img + '" alt=""/></a>' +
                 '<dl>' +
                 '<dt>' + userObj.user.userRealName + '</dt>' +
                 '<dd><span>' + chat.chatContent + '</span></dd>' +
@@ -376,7 +380,11 @@
         this.createOwnChat = function (chat) {
             var view = document.createElement("div");
             view.className = "myAsk_P";
-            view.innerHTML = '<a href="javascript:;" class="perPic_P"><img src="' + this.own.userImg + '" alt=""/></a>' +
+            var img;
+            if (this.own.userImg === null || this.own.userImg === undefined) {
+                img = "js/anychat/images/default.png";
+            }
+            view.innerHTML = '<a href="javascript:;" class="perPic_P"><img src="' + img + '" alt=""/></a>' +
                 '<dl>' +
                 '<dd><span>' + chat.chatContent + '</span></dd>' +
                 '</dl>' +

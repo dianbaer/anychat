@@ -19,7 +19,11 @@
             if (!this.user.isOnline) {
                 view.className = "downLine_P";
             }
-            view.innerHTML = '<img src="' + this.user.userImg + '" alt=""/><span>' + this.user.userRealName + '</span>';
+            var img;
+            if (this.user.userImg === null || this.user.userImg === undefined) {
+                img = "js/anychat/images/default.png";
+            }
+            view.innerHTML = '<img src="' + img + '" alt=""/><span>' + this.user.userRealName + '</span>';
             this.view = $(view);
             this.view.attr("id", this.user.userId);
             this.shadow = $("<i class='shadow_P'></i>");
