@@ -9,6 +9,10 @@ anychat是一个极其纯净的websocket聊天插件，支持对接任何身份�
 
 ![内部流程图](./anychat.png "anychat.png")
 
+嵌入流程图
+
+![嵌入流程图](./anychatflow.png "anychatflow.png")
+
 优势：
 
 	1、合理的线程归属设计，登录、离线、断线归属线程1，其他业务归属随机线程。
