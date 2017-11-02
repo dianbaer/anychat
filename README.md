@@ -2,18 +2,18 @@
 
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
-anychat是一个极其纯净的websocket聊天插件，支持对接任何身份系统、组织架构，嵌入方只需提供三个API即可进行实时通讯，支持个人与个人聊天、群聊天等。
+## anychat是一个极其纯净的websocket聊天插件，支持对接任何身份系统、组织架构，嵌入方只需提供三个API即可进行实时通讯，支持个人与个人聊天、群聊天等。
 
 
-内部流程图
+### 内部流程图
 
 ![内部流程图](./anychat.png "anychat.png")
 
-嵌入流程图
+### 嵌入流程图
 
 ![嵌入流程图](./anychatflow.png "anychatflow.png")
 
-优势：
+## 优势：
 
 	1、合理的线程归属设计，登录、离线、断线归属线程1，其他业务归属随机线程。
 	2、服务器掌握绝对的控制权，消息首先推送至每个人的消费队列，每个线程再进行轮训推送消息。
