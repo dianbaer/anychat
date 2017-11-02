@@ -20,9 +20,6 @@ https://www.threecss.com/AnyChatClient/third-embed-demo.html
 
 ![内部流程图](./anychat.png "anychat.png")
 
-### 嵌入流程图
-
-![嵌入流程图](./anychatflow.png "anychatflow.png")
 
 ## 优势：
 
@@ -68,6 +65,11 @@ https://www.threecss.com/AnyChatClient/third-embed-demo.html
 	
 
 ## 与第三方身份系统对接
+
+
+#### 嵌入流程图
+
+![嵌入流程图](./anychatflow.png "anychatflow.png")
 
 
 默认代码对接身份系统为：
