@@ -8,15 +8,13 @@ module.exports = function (grunt) {
             },
             dist: {
                 src: [
-                    'src/ByteUtil.js',
-					'src/FileConfig.js',
+                    'src/ChatObjEventType.js',
+					'src/GetUrlParam.js',
 					'src/NotificationExt.js',
-					'src/PostfixUtil.js',
-					'src/UploadEventType.js',
-					'src/FileSystemStatus.js',
-					'src/UploadFileProxy.js',
-					'src/UploadFileObj.js',
-					'src/FileMediator.js'
+					'src/LoginChatProxy.js',
+					'src/UserObj.js',
+					'src/GroupObj.js',
+					'src/TalkMediator.js'
                 ],
                 dest: 'dist/<%= pkg.name %>.js'
             }
