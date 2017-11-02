@@ -134,6 +134,9 @@
             this.webSocketClient.addEventListener(webSocketEventType.CLOSE, this.onClose, this);
             loginChatProxy.init(this.webSocketClient);
         };
+        this.onClose = function (event) {
+            alert("与服务器断开链接");
+        };
         //断开聊天服务器
         this.logoutChatServer = function () {
             if (this.webSocketClient !== null && this.webSocketClient !== undefined) {
