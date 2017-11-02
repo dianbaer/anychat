@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>第三方嵌入例子</title>
+    <script src="js/lib/juggle-all.js" type="text/javascript"></script>
+    <script src="js/lib/jquery.min.js" type="text/javascript"></script>
+
+    <link href='third/pure.css' rel='stylesheet' type='text/css'/>
+    <link href='third/grids-responsive.css' rel='stylesheet' type='text/css'/>
+    <link href='third/index.css' rel='stylesheet' type='text/css'/>
+    <link href='third/font-awesome.css' rel='stylesheet' type='text/css'/>
+</head>
+<script type="text/javascript">
+    var adminToken = null;
+    function adminSuccess(event){
+        var data = JSON.parse(event.mData);
+        adminToken = data.tokenId;
+
+        var header = [];
+        header["hOpCode"] = "20";
+        var httpClient = new juggle.HttpClient();
+        httpClient.send(data, "http://localhost:8080/IdentityServer/s", header);
+        httpClient.addEventListener(juggle.httpEventType.SUCCESS, adminSuccess, this);
+        httpClient.addEventListener(juggle.httpEventType.ERROR, adminError, this);
+
+    }
+    function adminError(event){
+
+    }
+    window.onload = function () {
+        $("#login").hide();
+        $("#registerbutton").on("click",function(event){
+            $("#login").hide();
+            $("#register").show();
+        });
+        $("#loginbutton").on("click",function(event){
+            $("#register").hide();
+            $("#login").show();
+        });
+        var data = {
+            'hOpCode': '20',
+            'userName': 'admin',
+            'userPassword': '123456'
+        };
+        var header = [];
+        header["hOpCode"] = "20";
+        var httpClient = new juggle.HttpClient();
+        httpClient.send(data, "http://localhost:8080/IdentityServer/s", header);
+        httpClient.addEventListener(juggle.httpEventType.SUCCESS, adminSuccess, this);
+        httpClient.addEventListener(juggle.httpEventType.ERROR, adminError, this);
+    }
+</script>
+<body>
+<div style="margin-top: 100px;margin-left: 100px">
+    <div class="pure-g" id="top">
+        <div>
+            <div class="pure-u-1 pure-u-md-1-2 ">
+                <button class="pure-button" id="registerbutton">
+                    <i class="fa fa-smile-o"></i>
+                    <span>注册</span>
+                </button>
+            </div>
+            <div class="pure-u-1 pure-u-md-1-2 ">
+                <button class="pure-button" id="loginbutton">
+                    <i class="fa fa-thumbs-up"></i>
+                    <span>登录</span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div id="register" class="pure-form pure-form-stacked">
+        <div>
+            <label>用户名</label>
+            <input type="text" id="userName_register"/>
+        </div>
+        <div>
+            <label>选择组</label>
+            <select id="state">
+                <option>AL</option>
+                <option>CA</option>
+                <option>IL</option>
+            </select>
+        </div>
+        <div>
+            <button class="pure-button">注册</button>
+        </div>
+    </div>
+    <div id="login" class="pure-form pure-form-stacked">
+        <div>
+            <input type="text" id="userName"/>
+        </div>
+        <div>
+            <button class="pure-button">登录</button>
+        </div>
+    </div>
+</div>
+<div id="embedchat">
+    <iframe id="embedchatiframe" src=""></iframe>
+</div>
+</body>
+</html>
