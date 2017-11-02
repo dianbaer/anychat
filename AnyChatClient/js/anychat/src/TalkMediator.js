@@ -51,6 +51,37 @@
             this.addNextPage(this, this.onNextPage);
             this.addLastPage(this, this.onLastPage);
             this.addReturnChat(this, this.onReturnChat);
+            $(".windowL_P>dd").mCustomScrollbar({
+                theme: "minimal",
+                advanced: {autoExpandHorizontalScroll: true},
+                scrollbarPosition: "outside"
+            });
+            $(".talkCon_P").mCustomScrollbar({
+                theme: "minimal",
+                advanced: {autoExpandHorizontalScroll: true},
+                scrollbarPosition: "outside"
+            });
+            $(".hisList_P").mCustomScrollbar({
+                theme: "minimal",
+                advanced: {autoExpandHorizontalScroll: true},
+                scrollbarPosition: "outside"
+            });
+            var talkButton = 1;
+            $(".windowL_P .group").on("click", "p", function () {
+                if (talkButton === 1) {
+                    $(this).parent().siblings().find(".slid_P").removeClass("slid_P");
+                    $(this).parent().siblings().find("ul").stop().slideUp();
+                    $(this).parent().find("p").addClass("slid_P").next().slideDown(function () {
+                        talkButton = 2;
+                    });
+                } else {
+                    $(this).parent().siblings().find(".slid_P").removeClass("slid_P");
+                    $(this).parent().siblings().find("ul").stop().slideUp();
+                    $(this).parent().find("p").removeClass("slid_P").next().slideUp(function () {
+                        talkButton = 1
+                    });
+                }
+            });
         };
         this.addSendChat = function (mediator, call) {
             var callFunc = function (event) {
@@ -162,7 +193,7 @@
             this.nowModule = 1;
             $(event.target).parents(".windowR_P.left2_P").hide().prev().show();
             //下拉滚动条
-            //$('.talkCon_P').mCustomScrollbar('scrollTo', 'bottom')
+            $('.talkCon_P').mCustomScrollbar('scrollTo', 'bottom')
         };
         //好友上线的操作
         this.userOnline = function (body) {
@@ -290,7 +321,7 @@
             }
             //设置当前聊天对象，清空聊天记录
             this.nowToObj = event.mTarget;
-            $("#chatList")[0].innerHTML = "";
+            $("#chatList #mCSB_2_container")[0].innerHTML = "";
             //如果是用户
             if (event.mTarget.user !== null && event.mTarget.user !== undefined) {
                 $("#toTypeName").text(this.nowToObj.user.userRealName);
@@ -322,10 +353,10 @@
                 } else {
                     view = this.createOtherUserChat(chat);
                 }
-                $("#chatList").append(view);
+                $("#chatList #mCSB_2_container").append(view);
             }
             //下拉滚动条
-            //$('.talkCon_P').mCustomScrollbar('scrollTo', 'bottom')
+            $('.talkCon_P').mCustomScrollbar('scrollTo', 'bottom')
         };
         //他人的聊天显示
         this.createOtherUserChat = function (chat) {
@@ -410,7 +441,7 @@
                 toType = 2;
                 toTypeId = this.nowToObj.group.chatGroupId;
             }
-            //$("#sendChatContent")[0].val("");
+            //$("#sendChatContent").val();
             loginChatProxy.sendMessage(chatContent, toType, toTypeId);
         };
         this.onClickHistory = function () {
@@ -505,10 +536,6 @@
                 toTypeId = this.nowToObj.group.chatGroupId;
             }
             loginChatProxy.getMessage(toType, toTypeId, chatCreateTime, currentPage, this.pageSize);
-        };
-        this.getDate = function () {
-            var html = $dp.cal.getNewDateStr();
-            this.getHistoryChatList(null, html);
         };
         Mediator.apply(this);
     };
