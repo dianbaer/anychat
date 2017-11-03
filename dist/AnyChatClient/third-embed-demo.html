@@ -5,18 +5,198 @@
     <title>第三方嵌入例子</title>
     <script src="js/lib/juggle-all.js" type="text/javascript"></script>
     <script src="js/lib/jquery.min.js" type="text/javascript"></script>
+
+    <link href='third/pure.css' rel='stylesheet' type='text/css'/>
+    <link href='third/grids-responsive.css' rel='stylesheet' type='text/css'/>
+    <link href='third/index.css' rel='stylesheet' type='text/css'/>
+    <link href='third/font-awesome.css' rel='stylesheet' type='text/css'/>
 </head>
 <script type="text/javascript">
-    window.onload = function () {
+    var adminToken = null;
+    var identityUrl = "http://localhost:8080/StartpointServer/s";
+    function adminSuccess(event) {
+        var returnData = JSON.parse(event.mData);
+        adminToken = returnData.tokenId;
+        //获取所有组
+        var data = {
+            "hOpCode": 4,
+            "isUserGroupParentIsNull": true,
+            "pageSize": 0
+        };
+        var header = [];
+        header["hOpCode"] = "4";
+        header["token"] = adminToken;
+        var httpClient = new juggle.HttpClient();
+        httpClient.send(data, identityUrl, header);
+        httpClient.addEventListener(juggle.httpEventType.SUCCESS, groupSuccess, this);
+        httpClient.addEventListener(juggle.httpEventType.ERROR, groupError, this);
 
+    }
+    function adminError(event) {
+        alert("获取admintoken失败");
+    }
+    function groupSuccess(event) {
+        var returnData = JSON.parse(event.mData);
+        for (var i = 0; i < returnData.userGroup.length; i++) {
+            var group = returnData.userGroup[i];
+            var html = '<option value="' + group.userGroupId + '">' + group.userGroupName + '</option>';
+            $("#state").append($(html));
+        }
+    }
+    function groupError(event) {
+        alert("获取组失败");
+    }
+    function loginSuccess(event) {
+        var returnData = JSON.parse(event.mData);
+        isLoad = false;
+        if (returnData.hOpCode === "0") {
+            alert("账号不对");
+            return;
+        }
+        $("#body").hide();
+        $("#talk_box").attr("src", "index.html?token=" + returnData.tokenId);
+        $("#text1")[0].innerHTML = "嵌入地址可在浏览器直接打开（这个窗口会被踢）：http://localhost/AnyChatClient/index.html?token=" + returnData.tokenId;
+        $("#text2")[0].innerHTML = "你的账号为：" + returnData.user.userName + "，下次体验不用再注册，密码都是默认123456不用输入";
+    }
+    function loginError(event) {
+        alert("登录失败");
+    }
+    function registerSuccess(event) {
+        var returnData = JSON.parse(event.mData);
+        isLoad = false;
+        if (returnData.hOpCode === "0") {
+            alert("注册失败，该账号已被注册");
+            return;
+        }
+        var data = {
+            'hOpCode': '20',
+            'userName': returnData.user.userName,
+            'userPassword': '123456'
+        };
+        var header = [];
+        header["hOpCode"] = "20";
+        var httpClient = new juggle.HttpClient();
+        httpClient.send(data, identityUrl, header);
+        httpClient.addEventListener(juggle.httpEventType.SUCCESS, loginSuccess, this);
+        httpClient.addEventListener(juggle.httpEventType.ERROR, loginError, this);
+    }
+    function registerError(event) {
+        alert("注册失败");
+    }
+    var isLoad = false;
+    window.onload = function () {
+        $("#login").hide();
+        $("#registerbutton").on("click", function (event) {
+            $("#login").hide();
+            $("#register").show();
+        });
+        $("#loginbutton").on("click", function (event) {
+            $("#register").hide();
+            $("#login").show();
+        });
+        $("#login1").on("click", function (event) {
+            if (isLoad) {
+                return;
+            }
+            var userName = $("#userName").val();
+            var data = {
+                'hOpCode': '20',
+                'userName': userName,
+                'userPassword': '123456'
+            };
+            var header = [];
+            header["hOpCode"] = "20";
+            var httpClient = new juggle.HttpClient();
+            httpClient.send(data, identityUrl, header);
+            httpClient.addEventListener(juggle.httpEventType.SUCCESS, loginSuccess, this);
+            httpClient.addEventListener(juggle.httpEventType.ERROR, loginError, this);
+            isLoad = true;
+        });
+        $("#register1").on("click", function (event) {
+            if (isLoad) {
+                return;
+            }
+            var userName = $("#userName_register").val();
+            var userGroupId = $("#state").val();
+            var data = {
+                'hOpCode': '10',
+                'userName': userName,
+                "userRealName": userName,
+                'userPassword': '123456',
+                "userGroupId": userGroupId
+            };
+            var header = [];
+            header["hOpCode"] = "10";
+            header["token"] = adminToken;
+            var httpClient = new juggle.HttpClient();
+            httpClient.send(data, identityUrl, header);
+            httpClient.addEventListener(juggle.httpEventType.SUCCESS, registerSuccess, this);
+            httpClient.addEventListener(juggle.httpEventType.ERROR, registerError, this);
+            isLoad = true;
+        });
+
+        //请求admintoken，为了后面获取组列表
+        var data = {
+            'hOpCode': '20',
+            'userName': 'admin',
+            'userPassword': '123456'
+        };
+        var header = [];
+        header["hOpCode"] = "20";
+        var httpClient = new juggle.HttpClient();
+        httpClient.send(data, identityUrl, header);
+        httpClient.addEventListener(juggle.httpEventType.SUCCESS, adminSuccess, this);
+        httpClient.addEventListener(juggle.httpEventType.ERROR, adminError, this);
     }
 </script>
 <body>
-<div>
+<div style="margin-top: 100px;margin-left: 100px" id="body">
+    <div class="pure-g" id="top">
+        <div>
+            <div class="pure-u-1 pure-u-md-1-2 ">
+                <button class="pure-button" id="registerbutton">
+                    <i class="fa fa-smile-o"></i>
+                    <span>注册</span>
+                </button>
+            </div>
+            <div class="pure-u-1 pure-u-md-1-2 ">
+                <button class="pure-button" id="loginbutton">
+                    <i class="fa fa-thumbs-up"></i>
+                    <span>登录</span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div id="register" class="pure-form pure-form-stacked">
+        <div>
+            <label>用户名（随便输入一个用户名即可）</label>
+            <input type="text" id="userName_register"/>
+        </div>
+        <div>
+            <label>选择组（随便选一个就行，防止组内人太多）</label>
+            <select id="state">
 
+            </select>
+        </div>
+        <div>
+            <button class="pure-button" id="register1">注册</button>
+        </div>
+    </div>
+    <div id="login" class="pure-form pure-form-stacked">
+        <div>
+            <label>用户名（需输入注册过的用户名）</label>
+            <input type="text" id="userName"/>
+        </div>
+        <div>
+            <button class="pure-button" id="login1">登录</button>
+        </div>
+    </div>
 </div>
-<div>
-
+<div id="embedchat">
+    <iframe frameborder="0" allowtransparency="true" width="770px" height="480px" id="talk_box" src=""></iframe>
+    <div>刷新界面可以重新登录</div>
+    <div id="text1"></div>
+    <div id="text2"></div>
 </div>
 </body>
 </html>
