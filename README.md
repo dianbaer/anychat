@@ -5,6 +5,9 @@
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/55abc0731cd44987ba8db1ef64badb22)](https://www.codacy.com/app/232365732/anychat?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=dianbaer/anychat&amp;utm_campaign=Badge_Grade)
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
+### 答疑、问题反馈QQ群：537982451
+
+
 ## anychat是一个极简纯净的websocket聊天插件，支持对接任何身份系统、组织架构，嵌入方只需提供三个API即可进行实时通讯，支持个人与个人聊天、群聊天等。
 
 ## 截图
