@@ -7,16 +7,16 @@
 
 ## anychat是一个极简纯净的websocket聊天插件，支持对接任何身份系统、组织架构，嵌入方只需提供三个API即可进行实时通讯，支持个人与个人聊天、群聊天等。
 
-### 截图
+## 截图
 
 ![截图](./anychat1.png "anychat1.png")
 
 
-### 体验地址：
+## 体验地址：
 
 https://www.threecss.com/AnyChatClient/third-embed-demo.html
 
-### 内部流程图
+## 内部流程图
 
 ![内部流程图](./anychat.png "anychat.png")
 
@@ -68,7 +68,7 @@ https://www.threecss.com/AnyChatClient/third-embed-demo.html
 ## 与第三方身份系统对接
 
 
-#### 嵌入流程图
+### 嵌入流程图
 
 ![嵌入流程图](./anychatflow.png "anychatflow.png")
 
@@ -156,30 +156,22 @@ https://gitee.com/dianbaer/startpoint
 
 ## java服务器基于grain-threadwebsocket等
 
-
 github：
-
 
 https://github.com/dianbaer/grain
 
-
 码云：
-
 
 https://gitee.com/dianbaer/grain
 
 
 ## js客户端基于juggle-event，juggle-mv，juggle-websocket
 
-
 github：
-
 
 https://github.com/dianbaer/juggle
 
-
 码云：
-
 
 https://gitee.com/dianbaer/basic
 	
