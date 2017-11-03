@@ -60,6 +60,7 @@ https://www.threecss.com/AnyChatClient/third-embed-demo.html
 			|--jquery.min.js
 			|--juggle-all.js（解耦合的工具库：https://github.com/dianbaer/juggle）
 			|--jquery.mCustomScrollbar.concat.min.js
+	|--third（third-embed-demo.html使用的样式）
 	|--index.html（示例启动项目，需要修改链接AnyChatServer地址）
 	|--third-embed-demo.html（第三方嵌入index.html示例）
 	

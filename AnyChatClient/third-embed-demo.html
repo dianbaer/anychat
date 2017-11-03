@@ -16,11 +16,9 @@
     function adminSuccess(event) {
         var returnData = JSON.parse(event.mData);
         adminToken = returnData.tokenId;
-
         var data = {
             "hOpCode": 4,
             "isUserGroupParentIsNull": true,
-            "isRecursion": false,
             "pageSize": 0
         };
         var header = [];
@@ -33,14 +31,30 @@
 
     }
     function adminError(event) {
-
+        alert("获取admintoken失败");
     }
     function groupSuccess(event) {
-
+        var returnData = JSON.parse(event.mData);
+        for (var i = 0; i < returnData.userGroup.length; i++) {
+            var group = returnData.userGroup[i];
+            var html = '<option value="' + group.userGroupId + '">' + group.userGroupName + '</option>';
+            $("#state").append($(html));
+        }
     }
     function groupError(event) {
+        alert("获取组失败");
+    }
+    function loginSuccess(event) {
+        var returnData = JSON.parse(event.mData);
+        isLoad = false;
+        $("#body").hide();
+        $("#talk_box").attr("src", "index.html?token=" + returnData.tokenId);
+        $("#text1")[0].innerHTML = "嵌入地址可在浏览器直接打开：http://localhost/AnyChatClient/index.html?token=" + returnData.tokenId;
+    }
+    function loginError(event) {
 
     }
+    var isLoad = false;
     window.onload = function () {
         $("#login").hide();
         $("#registerbutton").on("click", function (event) {
@@ -50,6 +64,35 @@
         $("#loginbutton").on("click", function (event) {
             $("#register").hide();
             $("#login").show();
+        });
+        $("#login1").on("click", function (event) {
+            if (isLoad) {
+                return;
+            }
+            var userName = $("#userName").val();
+            var data = {
+                'hOpCode': '20',
+                'userName': userName,
+                'userPassword': '123456'
+            };
+            var header = [];
+            header["hOpCode"] = "20";
+            var httpClient = new juggle.HttpClient();
+            httpClient.send(data, "http://localhost:8080/StartpointServer/s", header);
+            httpClient.addEventListener(juggle.httpEventType.SUCCESS, loginSuccess, this);
+            httpClient.addEventListener(juggle.httpEventType.ERROR, loginError, this);
+            isLoad = true;
+        });
+        $("#register1").on("click", function (event) {
+            var userName = $("#userName_register").val();
+            var select = $("#state").val();
+            var header = [];
+            header["hOpCode"] = "20";
+            var httpClient = new juggle.HttpClient();
+            httpClient.send(data, "http://localhost:8080/StartpointServer/s", header);
+            httpClient.addEventListener(juggle.httpEventType.SUCCESS, adminSuccess, this);
+            httpClient.addEventListener(juggle.httpEventType.ERROR, adminError, this);
+
         });
         var data = {
             'hOpCode': '20',
@@ -65,7 +108,7 @@
     }
 </script>
 <body>
-<div style="margin-top: 100px;margin-left: 100px">
+<div style="margin-top: 100px;margin-left: 100px" id="body">
     <div class="pure-g" id="top">
         <div>
             <div class="pure-u-1 pure-u-md-1-2 ">
@@ -90,13 +133,11 @@
         <div>
             <label>选择组</label>
             <select id="state">
-                <option>AL</option>
-                <option>CA</option>
-                <option>IL</option>
+
             </select>
         </div>
         <div>
-            <button class="pure-button">注册</button>
+            <button class="pure-button" id="register1">注册</button>
         </div>
     </div>
     <div id="login" class="pure-form pure-form-stacked">
@@ -104,12 +145,14 @@
             <input type="text" id="userName"/>
         </div>
         <div>
-            <button class="pure-button">登录</button>
+            <button class="pure-button" id="login1">登录</button>
         </div>
     </div>
 </div>
 <div id="embedchat">
-    <iframe id="embedchatiframe" src=""></iframe>
+    <iframe frameborder="0" allowtransparency="true" width="770px" height="480px" id="talk_box" src=""></iframe>
+    <div>刷新界面可以重新登录</div>
+    <div id="text1"></div>
 </div>
 </body>
 </html>
