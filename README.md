@@ -9,7 +9,7 @@
 
 ## 截图
 
-![截图](./anychat1.png "anychat1.png")
+![截图](./anychatphoto.png "anychatphoto.png")
 
 
 ## 体验地址：
@@ -40,7 +40,7 @@ https://www.threecss.com/AnyChatClient/third-embed-demo.html
 		|--AnyChatServer.properties---------------配置文件（需要修改）
 		|--generatorConfig.xml--------------------mybatis自动生成配置文件（重新生成时，需要修改）
 		|--org.anychat
-			|--action.IdentityAction.java---------从第三方身份系统获取数据（需要修改）
+			|--action.IdentityAction.java---------从第三方身份系统获取数据（对接非默认身份系统时，需要修改）
 			|--init.InitServlet-------------------启动类
 			|--mongodb----------------------------聊天记录存储至mongodb的扩展包（如果不用mongodb，此包没用）
 			|--plugin.PaginationPlugin.java-------mybatis自动生成配置文件启动类
@@ -68,16 +68,12 @@ https://www.threecss.com/AnyChatClient/third-embed-demo.html
 ## 与第三方身份系统对接
 
 
-### 嵌入流程图
-
-![嵌入流程图](./anychatflow.png "anychatflow.png")
-
-
 默认代码对接身份系统为：
 
 https://github.com/dianbaer/startpoint
 
 https://gitee.com/dianbaer/startpoint
+
 
 如果对接其他身份系统，需要提供三个API
 
@@ -86,7 +82,13 @@ https://gitee.com/dianbaer/startpoint
 	1、校验身份，返回用户信息
 	2、返回好友列表
 	3、返回组织信息
+
 	
+### 嵌入与对接流程图
+
+![嵌入与对接流程图](./anychatflow.png "anychatflow.png")
+
+
 	
 ## 打版本：在项目根目录下，执行
 
