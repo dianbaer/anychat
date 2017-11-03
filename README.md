@@ -74,7 +74,9 @@ https://www.threecss.com/AnyChatClient/third-embed-demo.html
 
 默认代码对接身份系统为：
 
-https://github.com/dianbaer/Identity
+https://github.com/dianbaer/startpoint
+
+https://gitee.com/dianbaer/startpoint
 
 如果对接其他身份系统，需要提供三个API
 
