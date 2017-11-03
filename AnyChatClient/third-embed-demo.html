@@ -55,7 +55,7 @@
         }
         $("#body").hide();
         $("#talk_box").attr("src", "index.html?token=" + returnData.tokenId);
-        $("#text1")[0].innerHTML = "嵌入地址可在浏览器直接打开：http://localhost/AnyChatClient/index.html?token=" + returnData.tokenId;
+        $("#text1")[0].innerHTML = "嵌入地址可在浏览器直接打开（这个窗口会被踢）：http://localhost/AnyChatClient/index.html?token=" + returnData.tokenId;
         $("#text2")[0].innerHTML = "你的账号为：" + returnData.user.userName + "，下次体验不用再注册，密码都是默认123456不用输入";
     }
     function loginError(event) {
