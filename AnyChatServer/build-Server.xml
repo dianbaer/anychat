@@ -45,6 +45,10 @@
 			<fileset dir="${Server-build}">
 				<include name="**/**" />
 			</fileset>
+			<fileset dir="${Server-src}">
+				<include name="**/*.xml" />
+				<exclude name="generatorConfig.xml"/>
+			</fileset>
 		</jar>
 	</target>
 	<target name="dist" depends="clean, generwar" />
