@@ -138,7 +138,9 @@ public class IdentityAction {
 	public static ChatUserData.Builder getChatUserDataBuilder(UserData userData, boolean isOnline) {
 		ChatUserData.Builder builder = ChatUserData.newBuilder();
 		builder.setUserId(userData.getUserId());
-		builder.setUserImg(userData.getUserImgUrl());
+		if(userData.getUserImgUrl()  != null) {
+			builder.setUserImg(userData.getUserImgUrl());
+		}
 		builder.setUserRealName(userData.getUserRealName());
 		builder.setUserRole(userData.getUserRole());
 		builder.setIsOnline(isOnline);

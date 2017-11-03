@@ -13,9 +13,11 @@
 </head>
 <script type="text/javascript">
     var adminToken = null;
+    var identityUrl = "http://localhost:8080/StartpointServer/s";
     function adminSuccess(event) {
         var returnData = JSON.parse(event.mData);
         adminToken = returnData.tokenId;
+        //获取所有组
         var data = {
             "hOpCode": 4,
             "isUserGroupParentIsNull": true,
@@ -25,7 +27,7 @@
         header["hOpCode"] = "4";
         header["token"] = adminToken;
         var httpClient = new juggle.HttpClient();
-        httpClient.send(data, "http://localhost:8080/StartpointServer/s", header);
+        httpClient.send(data, identityUrl, header);
         httpClient.addEventListener(juggle.httpEventType.SUCCESS, groupSuccess, this);
         httpClient.addEventListener(juggle.httpEventType.ERROR, groupError, this);
 
@@ -47,12 +49,39 @@
     function loginSuccess(event) {
         var returnData = JSON.parse(event.mData);
         isLoad = false;
+        if (returnData.hOpCode === "0") {
+            alert("账号不对");
+            return;
+        }
         $("#body").hide();
         $("#talk_box").attr("src", "index.html?token=" + returnData.tokenId);
         $("#text1")[0].innerHTML = "嵌入地址可在浏览器直接打开：http://localhost/AnyChatClient/index.html?token=" + returnData.tokenId;
+        $("#text2")[0].innerHTML = "你的账号为：" + returnData.user.userName + "，下次体验不用再注册，密码都是默认123456不用输入";
     }
     function loginError(event) {
-
+        alert("登录失败");
+    }
+    function registerSuccess(event) {
+        var returnData = JSON.parse(event.mData);
+        isLoad = false;
+        if (returnData.hOpCode === "0") {
+            alert("注册失败，该账号已被注册");
+            return;
+        }
+        var data = {
+            'hOpCode': '20',
+            'userName': returnData.user.userName,
+            'userPassword': '123456'
+        };
+        var header = [];
+        header["hOpCode"] = "20";
+        var httpClient = new juggle.HttpClient();
+        httpClient.send(data, identityUrl, header);
+        httpClient.addEventListener(juggle.httpEventType.SUCCESS, loginSuccess, this);
+        httpClient.addEventListener(juggle.httpEventType.ERROR, loginError, this);
+    }
+    function registerError(event) {
+        alert("注册失败");
     }
     var isLoad = false;
     window.onload = function () {
@@ -78,22 +107,35 @@
             var header = [];
             header["hOpCode"] = "20";
             var httpClient = new juggle.HttpClient();
-            httpClient.send(data, "http://localhost:8080/StartpointServer/s", header);
+            httpClient.send(data, identityUrl, header);
             httpClient.addEventListener(juggle.httpEventType.SUCCESS, loginSuccess, this);
             httpClient.addEventListener(juggle.httpEventType.ERROR, loginError, this);
             isLoad = true;
         });
         $("#register1").on("click", function (event) {
+            if (isLoad) {
+                return;
+            }
             var userName = $("#userName_register").val();
-            var select = $("#state").val();
+            var userGroupId = $("#state").val();
+            var data = {
+                'hOpCode': '10',
+                'userName': userName,
+                "userRealName": userName,
+                'userPassword': '123456',
+                "userGroupId": userGroupId
+            };
             var header = [];
-            header["hOpCode"] = "20";
+            header["hOpCode"] = "10";
+            header["token"] = adminToken;
             var httpClient = new juggle.HttpClient();
-            httpClient.send(data, "http://localhost:8080/StartpointServer/s", header);
-            httpClient.addEventListener(juggle.httpEventType.SUCCESS, adminSuccess, this);
-            httpClient.addEventListener(juggle.httpEventType.ERROR, adminError, this);
-
+            httpClient.send(data, identityUrl, header);
+            httpClient.addEventListener(juggle.httpEventType.SUCCESS, registerSuccess, this);
+            httpClient.addEventListener(juggle.httpEventType.ERROR, registerError, this);
+            isLoad = true;
         });
+
+        //请求admintoken，为了后面获取组列表
         var data = {
             'hOpCode': '20',
             'userName': 'admin',
@@ -102,7 +144,7 @@
         var header = [];
         header["hOpCode"] = "20";
         var httpClient = new juggle.HttpClient();
-        httpClient.send(data, "http://localhost:8080/StartpointServer/s", header);
+        httpClient.send(data, identityUrl, header);
         httpClient.addEventListener(juggle.httpEventType.SUCCESS, adminSuccess, this);
         httpClient.addEventListener(juggle.httpEventType.ERROR, adminError, this);
     }
@@ -142,6 +184,7 @@
     </div>
     <div id="login" class="pure-form pure-form-stacked">
         <div>
+            <label>用户名</label>
             <input type="text" id="userName"/>
         </div>
         <div>
@@ -153,6 +196,7 @@
     <iframe frameborder="0" allowtransparency="true" width="770px" height="480px" id="talk_box" src=""></iframe>
     <div>刷新界面可以重新登录</div>
     <div id="text1"></div>
+    <div id="text2"></div>
 </div>
 </body>
 </html>
