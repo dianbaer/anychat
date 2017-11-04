@@ -54,6 +54,7 @@
             return;
         }
         $("#body").hide();
+        $("#embedchat").show();
         $("#talk_box").attr("src", "index.html?token=" + returnData.tokenId);
         $("#text1")[0].innerHTML = "嵌入地址可在浏览器直接打开（这个窗口会被踢）：http://localhost/AnyChatClient/index.html?token=" + returnData.tokenId;
         $("#text2")[0].innerHTML = "你的账号为：" + returnData.user.userName + "，下次体验不用再注册，密码都是默认123456不用输入";
@@ -86,6 +87,7 @@
     var isLoad = false;
     window.onload = function () {
         $("#login").hide();
+        $("#embedchat").hide();
         $("#registerbutton").on("click", function (event) {
             $("#login").hide();
             $("#register").show();
@@ -150,19 +152,20 @@
     }
 </script>
 <body>
+<h2 style="margin-left: 100px;margin-top: 20px;">第三方嵌入例子</h2>
 <div style="margin-top: 100px;margin-left: 100px" id="body">
     <div class="pure-g" id="top">
         <div>
             <div class="pure-u-1 pure-u-md-1-2 ">
                 <button class="pure-button" id="registerbutton">
                     <i class="fa fa-smile-o"></i>
-                    <span>注册</span>
+                    <span>注册入口</span>
                 </button>
             </div>
             <div class="pure-u-1 pure-u-md-1-2 ">
                 <button class="pure-button" id="loginbutton">
                     <i class="fa fa-thumbs-up"></i>
-                    <span>登录</span>
+                    <span>登录入口</span>
                 </button>
             </div>
         </div>
@@ -192,7 +195,7 @@
         </div>
     </div>
 </div>
-<div id="embedchat">
+<div id="embedchat" style="margin-left: 50px;">
     <iframe frameborder="0" allowtransparency="true" width="770px" height="480px" id="talk_box" src=""></iframe>
     <div>刷新界面可以重新登录</div>
     <div id="text1"></div>
