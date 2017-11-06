@@ -159,7 +159,19 @@ https://gitee.com/dianbaer/startpoint
 	
 	
 
-## java服务器基于grain-threadwebsocket等
+## java服务器基于grain
+
+依赖以下库，共（2162行，学习成本极低）
+
+	grain-httpclient.jar（289行）
+	grain-log.jar（111行）
+	grain-mariadb.jar（48行）
+	grain-mongodb.jar（340行）
+	grain-msg.jar（284行）
+	grain-thread.jar（499行）
+	grain-threadmsg.jar（69行）
+	grain-threadwebsocket.jar（109行）
+	grain-websocket-lib.jar（413行）
 
 github：
 
@@ -170,7 +182,15 @@ https://github.com/dianbaer/grain
 https://gitee.com/dianbaer/grain
 
 
-## js客户端基于juggle-event，juggle-mv，juggle-websocket
+## js客户端基于juggle
+
+最精简依赖以下库，共（618行，学习成本极低）
+
+	juggle-help.js（33行）
+	juggle-event.js（256行）
+	juggle-http.js（99行）
+	juggle-websocket.js（126行）
+	juggle-mv.js（104行）
 
 github：
 
