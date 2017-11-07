@@ -61,7 +61,14 @@ https://www.threecss.com/AnyChatClient/third-embed-demo.html
 			|--src（anychat js未打包版本）
 		|--lib（依赖js）
 			|--jquery.min.js
-			|--juggle-all.js（解耦合的工具库：https://github.com/dianbaer/juggle）
+			######################################
+			|--juggle-all.js（解耦合的工具库ALL IN ONE：https://github.com/dianbaer/juggle）
+			或
+			|--juggle-help.js
+			|--juggle-event.js （解耦合的工具库small require：https://github.com/dianbaer/juggle）
+			|--juggle-websocket.js
+			|--juggle-mv.js
+			######################################
 			|--jquery.mCustomScrollbar.concat.min.js
 	|--third（third-embed-demo.html使用的样式）
 	|--index.html（示例启动项目，需要修改链接AnyChatServer地址）
@@ -184,11 +191,10 @@ https://gitee.com/dianbaer/grain
 
 ## js客户端基于juggle
 
-最精简依赖以下库，共（618行，学习成本极低）
+最精简依赖以下库，共（519行，学习成本极低）
 
 	juggle-help.js（33行）
 	juggle-event.js（256行）
-	juggle-http.js（99行）
 	juggle-websocket.js（126行）
 	juggle-mv.js（104行）
 
