@@ -12,8 +12,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 
 import org.anychat.config.CommonConfigChat;
+import org.anychat.log.HttpclientLog;
 import org.anychat.log.MariadbLog;
-import org.anychat.log.ThreadLog;
+import org.anychat.log.ThreadmsgLog;
 import org.anychat.log.WebSocketLog;
 import org.anychat.mongodb.log.MongodbLog;
 import org.anychat.mongodb.service.LoginChatServiceMongodb;
@@ -44,17 +45,17 @@ public class InitServlet extends HttpServlet {
 		try {
 			log = new WebSocketLog();
 			WSManager.init(log);
-			ThreadLog threadLog = new ThreadLog();
+			ThreadmsgLog threadmsgLog = new ThreadmsgLog();
 			TimeZone.setDefault(TimeZone.getTimeZone("Asia/Shanghai"));
 			ServletContext servletContext = this.getServletContext();
 			String configFileName = servletContext.getInitParameter("configFileName");
 			Properties properties = loadConfig(configFileName);
 			MybatisManager.init(properties.getProperty("config_dir"), "mybatis-config.xml", new MariadbLog());
-			HttpUtil.init("UTF-8", threadLog);
+			HttpUtil.init("UTF-8", new HttpclientLog());
 			// 初始化线程消息
-			AsyncThreadManager.init(100, 10, 3, 0, threadLog);
+			AsyncThreadManager.init(100, 10, 3, 0, threadmsgLog);
 			AsyncThreadManager.start();
-			MsgManager.init(true, threadLog);
+			MsgManager.init(true, threadmsgLog);
 
 			WsOpCodeChat.init();
 			CommonConfigChat.init(properties);

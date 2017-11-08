@@ -4,11 +4,11 @@ import org.grain.log.ILog;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class ThreadLog implements ILog {
+public class ThreadmsgLog implements ILog {
 	private Logger log;
 
-	public ThreadLog() {
-		this.log = LoggerFactory.getLogger("threadLog");
+	public ThreadmsgLog() {
+		this.log = LoggerFactory.getLogger("threadmsgLog");
 	}
 
 	@Override
