@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServlet;
 
 import org.anychat.config.CommonConfigChat;
 import org.anychat.log.MariadbLog;
+import org.anychat.log.ThreadLog;
 import org.anychat.log.WebSocketLog;
 import org.anychat.mongodb.log.MongodbLog;
 import org.anychat.mongodb.service.LoginChatServiceMongodb;
@@ -43,16 +44,17 @@ public class InitServlet extends HttpServlet {
 		try {
 			log = new WebSocketLog();
 			WSManager.init(log);
+			ThreadLog threadLog = new ThreadLog();
 			TimeZone.setDefault(TimeZone.getTimeZone("Asia/Shanghai"));
 			ServletContext servletContext = this.getServletContext();
 			String configFileName = servletContext.getInitParameter("configFileName");
 			Properties properties = loadConfig(configFileName);
 			MybatisManager.init(properties.getProperty("config_dir"), "mybatis-config.xml", new MariadbLog());
-			HttpUtil.init("UTF-8", log);
+			HttpUtil.init("UTF-8", threadLog);
 			// 初始化线程消息
-			AsyncThreadManager.init(100, 10, 3, 0, log);
+			AsyncThreadManager.init(100, 10, 3, 0, threadLog);
 			AsyncThreadManager.start();
-			MsgManager.init(true, log);
+			MsgManager.init(true, threadLog);
 
 			WsOpCodeChat.init();
 			CommonConfigChat.init(properties);
