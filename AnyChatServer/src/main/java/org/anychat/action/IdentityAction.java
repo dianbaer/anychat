@@ -138,10 +138,15 @@ public class IdentityAction {
 	public static ChatUserData.Builder getChatUserDataBuilder(UserData userData, boolean isOnline) {
 		ChatUserData.Builder builder = ChatUserData.newBuilder();
 		builder.setUserId(userData.getUserId());
-		if(userData.getUserImgUrl()  != null) {
+		if (userData.getUserImgUrl() != null) {
 			builder.setUserImg(userData.getUserImgUrl());
 		}
-		builder.setUserRealName(userData.getUserRealName());
+		if (userData.getUserRealName() != null) {
+			builder.setUserRealName(userData.getUserRealName());
+		} else {
+			// 没真实姓名使用uuid
+			builder.setUserRealName(userData.getUserId());
+		}
 		builder.setUserRole(userData.getUserRole());
 		builder.setIsOnline(isOnline);
 		return builder;
