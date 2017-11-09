@@ -201,7 +201,9 @@ public class OnlineUserMongodb implements ICycle {
 			}
 			chatMap.put(friend.getUserId(), list);
 		}
-		sendUserChat(chatMap);
+		if (chatMap.size() > 0) {
+			sendUserChat(chatMap);
+		}
 		// 发送组数据
 		List<ChatGroupUser> chatGroupUserList = ChatGroupUserAction.getChatGroupUserList(getUserId(), null);
 		if (chatGroupUserList != null && chatGroupUserList.size() != 0) {

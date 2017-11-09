@@ -141,6 +141,8 @@ public class LoginChatServiceMongodb implements IWSListener, IMsgListener {
 			if (chatGroupList == null) {
 				// 公司群组初始化
 			}
+		}else {
+			return;
 		}
 		// 加入在线列表
 		OnlineUserMongodb newOnlineUser = new OnlineUserMongodb(userData, session, token, friendList);

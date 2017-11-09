@@ -140,6 +140,8 @@ public class LoginChatService implements IWSListener, IMsgListener {
 			if (chatGroupList == null) {
 				// 公司群组初始化
 			}
+		} else {
+			return;
 		}
 		// 加入在线列表
 		OnlineUser newOnlineUser = new OnlineUser(userData, session, token);
