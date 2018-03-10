@@ -16,7 +16,7 @@
 
 ## 体验地址：
 
-https://www.threecss.com/AnyChatClient/third-embed-demo.html
+https://www.dianbaer.com/AnyChatClient/third-embed-demo.html
 
 ## 内部流程图
 
