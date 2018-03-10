@@ -26,9 +26,9 @@
         <!-- JDBC连接信息 -->
         <jdbcConnection 
         	driverClass="org.mariadb.jdbc.Driver" 
-            connectionURL="jdbc:mysql://localhost:3307/anychat?useUnicode=true&amp;characterEncoding=utf8" 
+            connectionURL="jdbc:mysql://localhost:3306/anychat?useUnicode=true&amp;characterEncoding=utf8" 
             userId="root" 
-            password="root">
+            password="xp1986124A">
         </jdbcConnection>
 
         <!-- 类型转换的信息 -->

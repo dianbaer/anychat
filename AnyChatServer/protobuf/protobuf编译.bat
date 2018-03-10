@@ -1,4 +1,4 @@
-C:
-cd C:\Users\admin\Desktop\github\anychat\trunk\AnyChatServer\protobuf
+d:
+cd D:\github\product\anychat\AnyChatServer\protobuf
 protoc --java_out=./ LoginChatProto.proto
 protoc --java_out=./ UserOfflineMsg.proto

@@ -1,6 +1,6 @@
 package org.anychat;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.fail;
 
 public class Test {
 
