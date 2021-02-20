@@ -1,5 +1,6 @@
-.settings
+.idea
+target
 .classpath
 .project
-build
-dist
+.settings
+*.iml
